@@ -135,6 +135,9 @@ module.exports.readProductByCategory = async (req, res) => {
             })
         })
 
+
+    // cara lain 
+
     // Category.findAll({ where: { id: req.params.id }, include: ['product'] })
     //     .then(categories => {
     //         res.status(200).json({

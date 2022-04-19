@@ -9,6 +9,7 @@ const UserController = require('../../controller/UserController');
 const RoleController = require('../../controller/RoleController');
 const UserRoleController = require('../../controller/UserRoleController');
 
+
 router.use(cors());
 
 
@@ -16,6 +17,7 @@ router.get('/category', CategoryController.readCategory);
 router.get('/category/:id', CategoryController.detailCategory);
 router.post('/category/create', CategoryController.createdCategory);
 router.put('/category/:id', CategoryController.updateCategory);
+router.get('/category/:id/product', CategoryController.readProductByCategory);
 
 router.get('/product', ProductController.readProduct);
 router.get('/product/:id', ProductController.detailProduct);

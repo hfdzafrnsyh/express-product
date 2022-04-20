@@ -3,6 +3,57 @@ const User = Model.users;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+
+
+// WEB
+module.exports.webLogin = (req, res) => {
+
+
+    res.locals.message = req.flash();
+    res.render('auth/login',
+        {
+            title: "Login",
+            layout: false,
+
+        }
+    );
+
+}
+module.exports.webPostLogin = async (req, res) => {
+
+
+    const users = await User.findOne({ where: { email: req.body.email } })
+    if (!users) {
+        req.flash('error', 'Invalid email or password')
+        res.redirect('/login');
+    }
+
+}
+
+module.exports.webRegister = (req, res) => {
+
+    res.locals.message = req.flash()
+    res.render('auth/register', {
+        title: 'Register',
+        layout: false
+    })
+}
+
+
+
+module.exports.webPostRegister = async (req, res) => {
+
+
+    const users = await User.findOne({ where: { email: req.body.email } })
+    if (users) {
+        req.flash('error_email', 'Email hash Registered')
+        res.redirect('/login');
+    }
+
+}
+
+// API
+
 module.exports.dataUser = (req, res) => {
 
     User.findAll({ attributes: ['name', 'email', 'photo', 'phone', 'isAdmin'], include: ['roles'] })

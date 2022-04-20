@@ -2,6 +2,8 @@ const Model = require('../models/index');
 const Category = Model.categories;
 const Product = Model.product;
 
+
+// API
 module.exports.readCategory = (req, res) => {
 
     Category.findAll()
@@ -119,6 +121,7 @@ module.exports.readProductByCategory = async (req, res) => {
 
     let category = await Category.findOne({ where: { id: req.params.id } })
     let categoryId = category.id;
+
 
     Product.findAll({ where: { categoryId: categoryId }, include: ['categories'] })
         .then(product => {

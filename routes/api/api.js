@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const authJwt = require('../../middleware/AuthJwt');
+const authJwt = require('../../middleware/AuthApi');
 
 const ProductController = require('../../controller/ProductController');
 const CategoryController = require('../../controller/CategoryController');
@@ -12,18 +12,6 @@ const UserRoleController = require('../../controller/UserRoleController');
 
 router.use(cors());
 
-
-router.get('/category', CategoryController.readCategory);
-router.get('/category/:id', CategoryController.detailCategory);
-router.post('/category/create', CategoryController.createdCategory);
-router.put('/category/:id', CategoryController.updateCategory);
-router.get('/category/:id/product', CategoryController.readProductByCategory);
-
-router.get('/product', ProductController.readProduct);
-router.get('/product/:id', ProductController.detailProduct);
-router.post('/product/create', ProductController.createdProduct);
-router.put('/product/:id', ProductController.updateProduct);
-router.delete('/product/:id', ProductController.removeProduct);
 
 // authenticate
 router.use(authJwt());
@@ -45,6 +33,17 @@ router.post('/roleuser/create', UserRoleController.createdUserRole);
 router.put('/roleuser/:id', UserRoleController.updateUserRole);
 
 
+router.get('/category', CategoryController.readCategory);
+router.get('/category/:id', CategoryController.detailCategory);
+router.post('/category/create', CategoryController.createdCategory);
+router.put('/category/:id', CategoryController.updateCategory);
+router.get('/category/:id/product', CategoryController.readProductByCategory);
+
+router.get('/product', ProductController.readProduct);
+router.get('/product/:id', ProductController.detailProduct);
+router.post('/product/create', ProductController.createdProduct);
+router.put('/product/:id', ProductController.updateProduct);
+router.delete('/product/:id', ProductController.removeProduct);
 
 
 module.exports = router;

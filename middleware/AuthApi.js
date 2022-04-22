@@ -11,8 +11,9 @@ function authJwt() {
         isRevoked: isRevoked
     }).unless({
         path: [
-            { url: /\/api\/role(.*)/, methods: ['GET', 'OPTIONS'] },
-            { url: /\/api\/roleuser(.*)/, methods: ['GET', 'OPTIONS'] },
+            { url: /\/api\/category(.*)/, methods: ['GET', 'OPTIONS'] },
+            { url: /\/api\/product(.*)/, methods: ['GET', 'OPTIONS'] },
+            `${'/'}`,
             `${api}`,
             `${api}/login`,
             `${api}/register`,
@@ -24,6 +25,7 @@ function authJwt() {
 async function isRevoked(req, payload, done) {
     if (!payload.isAdmin) {
         done(null, true)
+
     }
     done();
 }

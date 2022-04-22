@@ -48,6 +48,14 @@
                 <div class="p-5">
                   <div class="text-center">
                     <h1 class="h4 text-danger mb-4">Create Your Account</h1>
+
+                    <span class="invalid text-center" role="alert">
+                      <% if(locals.message) { %> 
+                          <strong class="text-danger"><%=message.error  %> </strong>
+                          <% } %> 
+                  </span>
+                     
+
                   </div>
                   <form class="user" method="POST" action="/register">
                   
@@ -61,23 +69,12 @@
                             
                     <input id="email" type="email" class="form-control form-control-user" name="email" required autocomplete="email" placeholder="Email">
 
-                    <span class="invalid" role="alert">
-                        <% if(locals.message) { %> 
-                            <strong class="text-danger"><%=message.error_email  %> </strong>
-                            <% } %> 
-                    </span>
-                       
+                
                      </div>
                     <div class="form-group">
                             
                     <input id="password" type="password" class="form-control form-control-user " name="password" required autocomplete="new-password" placeholder="Password">
 
-                    <span class="invalid" role="alert">
-                        <% if(locals.message) { %> 
-                            <strong class="text-danger"><%=message.error_password  %> </strong>
-                            <% } %> 
-                    </span>
-                            
                      </div>
                     
                      <div class="form-group">

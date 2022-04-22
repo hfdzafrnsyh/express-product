@@ -46,7 +46,7 @@
                                                 <% } %>  
                                         </span>
                                     </div>
-                                    <form class="user" action="/login" method="POST">
+                                    <form class="user" method="POST">
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
@@ -56,7 +56,8 @@
                                             <input type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password" name="password">
                                         </div>
-                                    
+                                        
+                                        <!-- <input type="hidden" name="_csrf" -->
                                       
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
@@ -69,7 +70,7 @@
                                         <a class="small" href="#">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="#">Create an Account!</a>
+                                        <a class="small" href="/register">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>

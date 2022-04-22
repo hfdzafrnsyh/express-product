@@ -39,19 +39,8 @@ app.use(flash());
 
 require('dotenv').config();
 
-
-// app.use(csurf({ cookie: { httpOnly: true } }))
-
 const routes = require('./routes/routes');
 routes(app);
-
-// app.use(function (err, req, res, next) {
-//     if (err.code !== 'EBADCSRFTOKEN') return next(err)
-
-//     // handle CSRF token errors here
-//     res.status(403)
-//     res.send('form tampered with')
-// })
 
 
 

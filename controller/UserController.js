@@ -5,76 +5,31 @@ const jwt = require('jsonwebtoken');
 
 
 // WEB
-// module.exports.webLogin = (req, res) => {
+module.exports.webLogin = (req, res) => {
 
 
-//     res.locals.message = req.flash();
-//     res.render('auth/login',
-//         {
-//             title: "Login",
-//             layout: false,
-//         }
-//     );
+    res.locals.message = req.flash();
+    res.render('auth/login',
+        {
+            title: "Login",
+            layout: false,
+        }
+    );
 
-// }
-
-
-
-// module.exports.webPostLogin = async (req, res, next) => {
+}
 
 
-//     const user = await User.findOne({ where: { email: req.body.email } })
-//     const secret = process.env.SECRET;
-//     if (!user) {
-//         req.flash('error', 'Invalid email or password')
-//         res.redirect('/login');
-//     } else if (user && bcrypt.compareSync(req.body.password, user.password)) {
+module.exports.webRegister = (req, res) => {
 
-//         const token = jwt.sign({
-//             users: user.id,
-//             isAdmin: user.isAdmin
-//         },
-//             secret
-//             ,
-//             {
-//                 expiresIn: '1d'
-//             }
-//         )
-
-//         res.cookie('jwt', token, { httpOnly: true, secure: true });
-//         res.redirect('/')
-
-//     } else {
-//         req.flash('error', 'Password Error')
-//         res.redirect('/login')
-//     }
-
-// }
-
-// module.exports.webRegister = (req, res) => {
-
-//     res.locals.message = req.flash()
-//     res.render('auth/register', {
-//         title: 'Register',
-//         layout: false
-//     })
-// }
+    res.locals.message = req.flash()
+    res.render('auth/register', {
+        title: 'Register',
+        layout: false
+    })
+}
 
 
 
-// module.exports.webPostRegister = async (req, res) => {
-
-
-//     const users = await User.findOne({ where: { email: req.body.email } })
-//     if (users) {
-//         req.flash('error', 'Email hash Registered')
-//         res.redirect('/register');
-//     } else if (req.body.password !== req.body.password_confirmation) {
-//         req.flash('error', 'Password Dont Match')
-//         res.redirect('/register');
-//     }
-
-// }
 
 // API
 
@@ -150,7 +105,7 @@ module.exports.register = (req, res) => {
 
 // login
 
-module.exports.login = (req, res) => {
+module.exports.login = (req, res, next) => {
 
     let secret = process.env.SECRET;
 
@@ -175,10 +130,12 @@ module.exports.login = (req, res) => {
 
                 const users = ({ email: user.email, token: token });
 
+                res.cookies('jwt', token, { httpOnly: true, secure: true });
                 res.status(200).json({
                     success: true,
                     users: users
                 })
+
             } else {
                 res.status(400).json({
                     success: false,

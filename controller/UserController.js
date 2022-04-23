@@ -4,33 +4,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
-// WEB
-module.exports.webLogin = (req, res) => {
-
-
-    res.locals.message = req.flash();
-    res.render('auth/login',
-        {
-            title: "Login",
-            layout: false,
-        }
-    );
-
-}
-
-
-module.exports.webRegister = (req, res) => {
-
-    res.locals.message = req.flash()
-    res.render('auth/register', {
-        title: 'Register',
-        layout: false
-    })
-}
-
-
-
-
 // API
 
 module.exports.dataUser = (req, res) => {
@@ -129,11 +102,9 @@ module.exports.login = (req, res, next) => {
                 );
 
                 const users = ({ email: user.email, token: token });
-
-                res.cookies('jwt', token, { httpOnly: true, secure: true });
                 res.status(200).json({
                     success: true,
-                    users: users
+                    user: users
                 })
 
             } else {

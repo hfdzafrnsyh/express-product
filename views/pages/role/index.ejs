@@ -1,0 +1,36 @@
+ <!-- Page Heading -->
+ <h1 class="h3 mb-4 text-gray-800">Role</h1>
+
+ <div class="table-role">
+
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+
+          
+            <% roles.forEach((role,index) => { %>
+                <tr>
+                  <th scope="row"><%= index %></th>
+                  <td><%= role.name %></td>
+                  <td>
+                      <a href="/role/<%= role.id %>/edit" class="text-warning"><i class="fas fa-edit"></i></a>
+                      <!-- <a href="/delete/<%= role.id %>" class="text-warning"><i class="fas fa-trash"></i></a> -->
+                      
+                      <form action="/role/<%= role.id%>" method="POST">
+                        <button type="submit" class="text-danger"><i class="fas fa-trash"></i></button>
+                      </form>
+                  </td>
+                </tr>
+                <% }) %>
+        
+        </tbody>
+      </table>
+
+ </div>

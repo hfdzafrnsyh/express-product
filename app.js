@@ -18,7 +18,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }))
+// buat css
 app.use(express.static(__dirname + '/public'));
+
+// buat path narik image
+app.use('/public', express.static(path.join(__dirname, 'public')))
 
 app.set('view engine', 'ejs');
 app.use(expressEjsLayouts);

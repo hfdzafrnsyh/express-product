@@ -66,12 +66,12 @@ module.exports.webPostLogin = async (req, res, next) => {
 
             const token = response.data.token
             res.cookie('jwt', token, { httpOnly: true, secure: true })
-            console.log(response.data)
             res.redirect('/home')
 
         })
         .catch(err => {
             req.flash('error', 'Invalid Email or Password');
+            console.log('error' + err)
             res.redirect('/login')
         })
 

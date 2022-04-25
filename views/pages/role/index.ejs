@@ -17,14 +17,12 @@
           
             <% roles.forEach((role,index) => { %>
                 <tr>
-                  <th scope="row"><%= index %></th>
+                  <th scope="row"><%= index += 1 %></th>
                   <td><%= role.name %></td>
                   <td>
-                      <a href="/role/<%= role.id %>/edit" class="text-warning"><i class="fas fa-edit"></i></a>
-                      <!-- <a href="/delete/<%= role.id %>" class="text-warning"><i class="fas fa-trash"></i></a> -->
-                      
+                      <a href="/role/<%= role.id %>/edit" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
                       <form action="/role/<%= role.id%>" method="POST">
-                        <button type="submit" class="text-danger"><i class="fas fa-trash"></i></button>
+                        <button type="submit" class="btn btn-danger btn-circle btn-sm justify-content-end"><i class="fas fa-trash"></i></button>
                       </form>
                   </td>
                 </tr>

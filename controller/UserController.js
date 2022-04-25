@@ -2,7 +2,8 @@ const Model = require('../models/index');
 const User = Model.users;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const axios = require('axios')
+const axios = require('axios');
+const { response } = require('express');
 
 
 
@@ -25,43 +26,19 @@ module.exports.webLogin = (req, res) => {
 module.exports.webPostLogin = async (req, res, next) => {
 
 
-    // const user = await User.findOne({ where: { email: req.body.email } })
-    // const secret = process.env.SECRET;
-    // if (!user) {
-    //     req.flash('error', 'Invalid email or password')
-    //     res.redirect('/login');
-    // } else if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    const user = await User.findOne({ where: { email: req.body.email } })
 
+    if (!user) {
+        req.flash('error', 'Email Not Registered')
+        res.redirect('/login')
+    }
 
-    //     const token = jwt.sign({
-    //         id: user.id,
-    //         isAdmin: user.isAdmin,
-    //         name: user.name,
-    //         email: user.email,
-    //         photo: user.photo
-    //     },
-    //         secret
-    //         ,
-    //         {
-    //             expiresIn: '1d'
-    //         }
-    //     )
-
-    //     res.cookie('jwt', token, { httpOnly: true, secure: true });
-    //     res.redirect('/home')
-
-
-    // } else {
-    //     req.flash('error', 'Password Error')
-    //     res.redirect('/login')
-    // }
-
-    const data = {
+    const users = {
         email: req.body.email,
         password: req.body.password
     }
 
-    await axios.post('http://localhost:5000/api/login', data)
+    await axios.post('http://localhost:5000/api/login', users)
         .then(response => {
 
             const token = response.data.token
@@ -91,14 +68,32 @@ module.exports.webRegister = (req, res) => {
 module.exports.webPostRegister = async (req, res) => {
 
 
-    const users = await User.findOne({ where: { email: req.body.email } })
-    if (users) {
+    const user = await User.findOne({ where: { email: req.body.email } })
+
+    if (user) {
         req.flash('error', 'Email hash Registered')
         res.redirect('/register');
     } else if (req.body.password !== req.body.password_confirmation) {
         req.flash('error', 'Password Dont Match')
         res.redirect('/register');
     }
+
+    let users = {
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+    }
+
+    await axios.post('http://localhost:5000/api/register', users)
+        .then(response => {
+            if (response.status == 201) {
+                req.flash('success', 'Created Account Successfully')
+                res.redirect('/login')
+            }
+        })
+        .catch(err => {
+            res.redirect('/register' + err)
+        })
 
 }
 

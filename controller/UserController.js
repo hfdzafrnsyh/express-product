@@ -76,24 +76,26 @@ module.exports.webPostRegister = async (req, res) => {
     } else if (req.body.password !== req.body.password_confirmation) {
         req.flash('error', 'Password Dont Match')
         res.redirect('/register');
+    } else {
+        let users = {
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password
+        }
+
+        await axios.post('http://localhost:5000/api/register', users)
+            .then(response => {
+                if (response.status == 201) {
+                    req.flash('success', 'Created Account Successfully')
+                    res.redirect('/login')
+                }
+            })
+            .catch(err => {
+                res.redirect('/register' + err)
+            })
     }
 
-    let users = {
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-    }
 
-    await axios.post('http://localhost:5000/api/register', users)
-        .then(response => {
-            if (response.status == 201) {
-                req.flash('success', 'Created Account Successfully')
-                res.redirect('/login')
-            }
-        })
-        .catch(err => {
-            res.redirect('/register' + err)
-        })
 
 }
 

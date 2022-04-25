@@ -3,25 +3,25 @@
     <form action="/roleuser/<%= roleuser.id %>" method="post" enctype="multipart/form-data">
               
                     
-        <div class="form-group">
-                <div class="col-sm-12">
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
                 <input type="text" placeholder="name" value="<%= roleuser.users.name %>" name="name" required id="name" readonly class="form-control round-form " >                               
                 </div>
                     
             </div>
          
-            <div class="input-group col-sm-12">
-              
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Role</label>
-                      </div>
-                      <select class="custom-select" id="inputGroupSelect01">
-                          <option selected><%= roleuser.roles.name %> </option>
-                    
+            <div class="input-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Role</label>
+                    <div class="input-group-prepend col-sm-10">
+                        <label class="input-group-text" for="inputGroupSelect01"><%= roleuser.roles.name %></label>
+                        <select class="custom-select" id="inputGroupSelect01">
                             <% roles.forEach( (role , index) => { %>
                                   <option value="<%= role.id %>"><%= role.name %></option>
                             <% }) %>
-                      </select>
+                      </select> 
+                    </div>
+                     
             </div>
 
          

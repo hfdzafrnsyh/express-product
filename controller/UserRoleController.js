@@ -20,6 +20,20 @@ module.exports.webReadRoleUser = async (req, res) => {
 
 }
 
+module.exports.webEditRoleUser = async (req, res) => {
+
+    const user = await User.findOne({ where: { id: req.user.userId } })
+    const roleuser = await UserRole.findOne({ where: { id: req.params.id } });
+
+    res.render('pages/roleuser/edit', {
+        title: 'Role User',
+        layout: 'layouts/app',
+        user: user,
+        roleuser: roleuser
+    })
+
+}
+
 
 // API
 module.exports.readUserRole = (req, res) => {

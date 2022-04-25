@@ -24,5 +24,6 @@ router.post('/role/:id', authMiddleware, RoleController.webRemoveRole)
 
 // roleuser
 router.get('/roleuser', authMiddleware, UserRoleController.webReadRoleUser);
+router.get('/roleuser/:id/edit', authMiddleware, UserRoleController.webEditRoleUser);
 
 module.exports = router;

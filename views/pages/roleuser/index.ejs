@@ -1,0 +1,33 @@
+ <!-- Page Heading -->
+ <h1 class="h3 mb-4 text-gray-800">Role User</h1>
+
+ <div class="table-role">
+
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Name User</th>
+            <th scope="col">Name Role</th>
+            <th scope="col">Action</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+
+            <% roleusers.forEach((roleuser,index) => { %>
+                <tr>
+                  <th scope="row"><%= index += 1 %></th>
+                  <td><%= roleuser.users.name %></td>
+                  <td><%= roleuser.roles.name %></td>
+                  <td>
+                      <a href="/roleuser/<%= roleuser.id %>/edit" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                     
+                  </td>
+                </tr>
+                <% }) %>
+        
+        </tbody>
+      </table>
+
+ </div>

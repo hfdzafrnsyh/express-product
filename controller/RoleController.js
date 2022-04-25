@@ -7,7 +7,7 @@ const User = Model.users;
 module.exports.webReadRole = async (req, res) => {
 
     const user = await User.findOne({ where: { id: req.user.userId } });
-    const roles = await Role.findAll({})
+    const roles = await Role.findAll()
 
     res.render('pages/role/index', {
         title: 'Role',

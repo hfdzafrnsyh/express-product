@@ -5,7 +5,7 @@ const Category = Model.categories;
 
 module.exports.readProduct = (req, res) => {
 
-    Product.findAll()
+    Product.findAll({ include: ['categories'] })
         .then(product => {
             res.status(200).json({
                 success: true,

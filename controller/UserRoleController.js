@@ -4,9 +4,27 @@ const Role = Model.roles;
 const UserRole = Model.user_roles;
 
 
+
+// WEB
+module.exports.webReadRoleUser = async (req, res) => {
+
+    const user = await User.findOne({ where: { id: req.user.userId } });
+    const roleuser = await UserRole.findAll({ include: ['users', 'roles'] });
+
+    res.render('pages/roleuser/index', {
+        title: 'Role User',
+        layout: 'layouts/app',
+        user: user,
+        roleusers: roleuser
+    })
+
+}
+
+
+// API
 module.exports.readUserRole = (req, res) => {
 
-    UserRole.findAll()
+    UserRole.findAll({ include: ['users', 'roles'] })
         .then(userRole => {
             res.status(200).json({
                 success: true,

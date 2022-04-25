@@ -10,7 +10,6 @@ const { response } = require('express');
 // WEB
 module.exports.webLogin = (req, res) => {
 
-
     res.locals.message = req.flash();
     res.render('auth/login',
         {
@@ -18,6 +17,7 @@ module.exports.webLogin = (req, res) => {
             layout: false,
         }
     );
+
 
 }
 

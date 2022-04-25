@@ -1,0 +1,37 @@
+<h1 class="h3 mb-4 text-gray-800">Role User</h1>
+
+    <form action="/roleuser/<%= roleuser.id %>" method="post" enctype="multipart/form-data">
+              
+                    
+        <div class="form-group">
+                <div class="col-sm-12">
+                <input type="text" placeholder="name" value="<%= roleuser.users.name %>" name="name" required id="name" readonly class="form-control round-form " >                               
+                </div>
+                    
+            </div>
+         
+            <div class="input-group col-sm-12">
+              
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Role</label>
+                      </div>
+                      <select class="custom-select" id="inputGroupSelect01">
+                          <option selected><%= roleuser.roles.name %> </option>
+                    
+                            <% roles.forEach( (role , index) => { %>
+                                  <option value="<%= role.id %>"><%= role.name %></option>
+                            <% }) %>
+                      </select>
+            </div>
+
+         
+
+                    <div class="text-center">
+                        <a href="/categories" class="btn btn-primary">Back</a>
+                        <button type="submit" class="btn btn-success text-center">Update</button>
+                    </div>
+
+        </form>
+
+  
+        

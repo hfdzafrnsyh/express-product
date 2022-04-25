@@ -9,7 +9,7 @@ const UserRole = Model.user_roles;
 module.exports.webReadRoleUser = async (req, res) => {
 
     const user = await User.findOne({ where: { id: req.user.userId } });
-    const roleuser = await UserRole.findAll({ include: ['users', 'roles'] });
+    const roleuser = await UserRole.findAll({ attributes: ['id'], include: ['users', 'roles'] });
 
     res.render('pages/roleuser/index', {
         title: 'Role User',
@@ -23,13 +23,15 @@ module.exports.webReadRoleUser = async (req, res) => {
 module.exports.webEditRoleUser = async (req, res) => {
 
     const user = await User.findOne({ where: { id: req.user.userId } })
-    const roleuser = await UserRole.findOne({ where: { id: req.params.id } });
+    const roleuser = await UserRole.findOne({ where: { id: req.params.id }, include: ['users', 'roles'] });
+    const roles = await Role.findAll();
 
     res.render('pages/roleuser/edit', {
-        title: 'Role User',
+        'title': 'Edit Role User',
         layout: 'layouts/app',
         user: user,
-        roleuser: roleuser
+        roleuser: roleuser,
+        roles: roles
     })
 
 }
@@ -38,12 +40,13 @@ module.exports.webEditRoleUser = async (req, res) => {
 // API
 module.exports.readUserRole = (req, res) => {
 
-    UserRole.findAll({ include: ['users', 'roles'] })
+    UserRole.findAll({ attributes: ['id', 'id_user', 'id_role'], include: ['users', 'roles'] })
         .then(userRole => {
             res.status(200).json({
                 success: true,
                 user_role: userRole
             })
+
         })
         .catch(err => {
             res.status(500).json({
@@ -54,6 +57,7 @@ module.exports.readUserRole = (req, res) => {
         })
 
 }
+
 
 module.exports.createdUserRole = async (req, res) => {
 

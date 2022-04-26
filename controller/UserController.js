@@ -170,6 +170,49 @@ module.exports.webUpdateProfile = async (req, res) => {
 
 }
 
+
+module.exports.webEditPassword = async (req, res) => {
+
+    const user = await User.findOne({ where: { id: req.user.userId } })
+
+    res.locals.message = req.flash();
+
+    res.render('pages/user/password', {
+        title: 'Edit Password',
+        layout: 'layouts/app',
+        user: user
+    })
+
+}
+
+
+module.exports.webUpdatePassword = async (req, res) => {
+
+    await User.findOne({ where: { id: req.user.userId } })
+        .then(user => {
+            if (user && !bcrypt.compareSync(req.body.old_password, user.password)) {
+                req.flash('error', 'Password Wrong!')
+                res.redirect('/user/password')
+            } else if (req.body.new_password !== req.body.repeat_password) {
+                req.flash('error', 'Password Dont Match!')
+                res.redirect('/user/password')
+            } else {
+                let users = {
+                    password: bcrypt.hashSync(req.body.new_password, 10)
+                }
+
+                User.update(users, { where: { id: req.params.id } })
+                req.flash('success', 'Update Password Successfully');
+                res.redirect('/user/password')
+            }
+        })
+        .catch(err => {
+            req.flash('error', `Error Update Password ${err}`)
+            res.redirect('/user/password');
+        })
+
+}
+
 module.exports.webLogout = async (req, res) => {
 
     res.clearCookie('jwt');

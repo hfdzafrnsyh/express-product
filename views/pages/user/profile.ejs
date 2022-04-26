@@ -1,0 +1,31 @@
+ <!-- Page Heading -->
+ <h1 class="h3 mb-4 text-gray-800">Profile</h1>
+
+ <div class="card shadow mb-4">
+    <!-- Card Header - Accordion -->
+    <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+        <h6 class="m-0 font-weight-bold text-primary"><%= user.name %></h6>
+    </a>
+    <!-- Card Content - Collapse -->
+    <div class="collapse show" id="collapseCardExample" style="">
+        <div class="card-body">
+          <div class="row">
+              <div class="col-sm-6 text-center">
+                <img src="http://localhost:5000/public/user/<%= user.photo %>" style="width:150px;"/>
+                <h6>Email : <%= user.email %></h6>
+               
+            </div>
+              <div class="col-sm-6 text-center">
+
+
+             
+              </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+    <div class="button-back text-center">
+        <a href="/dashboard" class="btn btn-primary">Back</a>
+    </div>
+

@@ -100,12 +100,27 @@ module.exports.webPostRegister = async (req, res) => {
 }
 
 
+
+module.exports.webProfile = async (req, res) => {
+
+    const user = await User.findOne({ where: { id: req.user.userId } });
+
+    res.render('pages/user/profile', {
+        title: 'Profile',
+        layout: 'layouts/app',
+        user: user
+    })
+
+}
+
 module.exports.webLogout = async (req, res) => {
 
     res.clearCookie('jwt');
     res.redirect('/')
 
 }
+
+
 
 
 // API

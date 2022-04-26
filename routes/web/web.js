@@ -16,9 +16,12 @@ router.post('/register', UserController.webPostRegister);
 
 router.get('/logout', authMiddleware, UserController.webLogout);
 
-// dashboard
+// user
+router.get('/profile', authMiddleware, UserController.webProfile);
 
+// dashboard
 router.get('/home', authMiddleware, DashboardController.webReadDashboard);
+
 
 // role
 router.post('/role/add', authMiddleware, RoleController.webCreatedRole);

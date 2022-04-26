@@ -17,21 +17,21 @@ const storage = multer.diskStorage({
             uploadImageError = null;
         }
 
-        cb(null, 'public/upload')
+        cb(null, 'public/user')
     },
     filename: function (req, file, cb) {
         const fileName = file.originalname.split(' ').join('-')
         const extension = FILE_TYPE_MAP[file.mimetype]
-        cb(null, `${fileName}-${Date.now()}.${extension}`)
+        cb(null, `${fileName}`)
     }
 })
 
 const uploadOptions = multer({ storage: storage })
 
-const middlewareImage = [
+const middlewareUserImage = [
     uploadOptions.single('image')
 ]
 
 
 
-module.exports = middlewareImage;
+module.exports = middlewareUserImage;

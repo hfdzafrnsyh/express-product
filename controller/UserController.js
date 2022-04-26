@@ -105,11 +105,68 @@ module.exports.webProfile = async (req, res) => {
 
     const user = await User.findOne({ where: { id: req.user.userId } });
 
+    res.locals.message = req.flash();
+
     res.render('pages/user/profile', {
         title: 'Profile',
         layout: 'layouts/app',
         user: user
     })
+
+}
+
+
+module.exports.webEditProfile = async (req, res) => {
+
+
+    const user = await User.findOne({ where: { id: req.user.userId } })
+
+    res.render('pages/user/edit', {
+        title: "Edit Profile",
+        layout: 'layouts/app',
+        user: user
+    })
+
+}
+
+
+module.exports.webUpdateProfile = async (req, res) => {
+
+
+    let files = req.file;
+
+    try {
+
+        if (!files) {
+
+            let users = {
+                name: req.body.name,
+                phone: req.body.phone,
+            }
+
+            await User.update(users, { where: { id: req.params.id } })
+            req.flash('success', 'Update Profile Successfully');
+            res.redirect('/profile')
+
+        } else {
+
+
+            let users = {
+                name: req.body.name,
+                phone: req.body.phone,
+                photo: req.file.filename
+            }
+
+            await User.update(users, { where: { id: req.params.id } })
+            req.flash('success', 'Update Profile Successfully');
+            res.redirect('/profile')
+        }
+
+    } catch {
+        req.flash('error', 'Failed Update Profile');
+        res.redirect('/profile')
+    }
+
 
 }
 

@@ -7,6 +7,7 @@ const RoleController = require('../../controller/RoleController');
 const UserRoleController = require('../../controller/UserRoleController');
 
 const authMiddleware = require('../../middleware/Auth');
+const imageUserMiddleware = require('../../middleware/imageUserMiddleware');
 
 
 router.get('/login', UserController.webLogin);
@@ -18,6 +19,8 @@ router.get('/logout', authMiddleware, UserController.webLogout);
 
 // user
 router.get('/profile', authMiddleware, UserController.webProfile);
+router.get('/profile/:id/edit', authMiddleware, UserController.webEditProfile);
+router.post('/profile/:id', authMiddleware, ...imageUserMiddleware, UserController.webUpdateProfile);
 
 // dashboard
 router.get('/home', authMiddleware, DashboardController.webReadDashboard);

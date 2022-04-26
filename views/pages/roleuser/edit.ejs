@@ -16,7 +16,7 @@
     <div class="form-group row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Role</label>
 
-        <div class="input-group-prepend col-sm-10">
+        <div class="input-group-prepend col-sm-10 ">
             <label class="input-group-text" for="inputGroupSelect01"><%= roleuser.roles.name %></label>
             <select class="custom-select" id="inputGroupSelect01" name="id_role" required>
                 <% roles.forEach( (role , index) => { %>
@@ -30,7 +30,7 @@
 
 
     <div class="text-center">
-        <a href="/roleuser" class="btn btn-primary">Back</a>
+        <a href="/roleuser" class="btn btn-primary btn-user">Back</a>
         <button type="submit" class="btn btn-success btn-user text-center">Update</button>
     </div>
 

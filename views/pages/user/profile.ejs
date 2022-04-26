@@ -1,6 +1,11 @@
  <!-- Page Heading -->
  <h1 class="h3 mb-4 text-gray-800">Profile</h1>
 
+ <% if(locals.message) { %>
+    <strong class="text-danger"><%= message.error %> </strong>
+    <strong class="text-success"><%= message.success %> </strong>
+     <% } %>  
+
  <div class="card shadow mb-4">
     <!-- Card Header - Accordion -->
     <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
@@ -26,6 +31,7 @@
 </div>
 
     <div class="button-back text-center">
-        <a href="/dashboard" class="btn btn-primary">Back</a>
+        <a href="/home" class="btn btn-primary btn-user">Back</a>
+        <a href="/profile/<%= user.id %>/edit" class="btn btn-success btn-user">Edit Profile</a>
     </div>
 

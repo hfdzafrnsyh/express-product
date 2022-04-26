@@ -8,8 +8,11 @@ const UserRole = Model.user_roles;
 // WEB
 module.exports.webReadRoleUser = async (req, res) => {
 
+
     const user = await User.findOne({ where: { id: req.user.userId } });
     const roleuser = await UserRole.findAll({ attributes: ['id'], include: ['users', 'roles'] });
+
+    res.locals.message = req.flash();
 
     res.render('pages/roleuser/index', {
         title: 'Role User',
@@ -23,7 +26,7 @@ module.exports.webReadRoleUser = async (req, res) => {
 module.exports.webEditRoleUser = async (req, res) => {
 
     const user = await User.findOne({ where: { id: req.user.userId } })
-    const roleuser = await UserRole.findOne({ where: { id: req.params.id }, include: ['users', 'roles'] });
+    const roleuser = await UserRole.findOne({ where: { id: req.params.id }, attributes: ['id', 'id_user', 'id_role'], include: ['users', 'roles'] });
     const roles = await Role.findAll();
 
     res.render('pages/roleuser/edit', {
@@ -32,10 +35,30 @@ module.exports.webEditRoleUser = async (req, res) => {
         user: user,
         roleuser: roleuser,
         roles: roles
+
     })
 
 }
 
+
+module.exports.webUpdateRoleUser = async (req, res) => {
+
+    try {
+
+        let roleuser = {
+            id_user: req.body.id_user,
+            id_role: req.body.id_role
+        }
+
+        await UserRole.update(roleuser, { where: { id: req.params.id } })
+        req.flash('success', 'Update User Role Success')
+        res.redirect('/roleuser')
+    } catch {
+        req.flash('error', 'Failed Update User Role')
+        res.redirect('/roleuser')
+    }
+
+}
 
 // API
 module.exports.readUserRole = (req, res) => {

@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }))
+
 // buat css
 app.use(express.static(__dirname + '/public'));
 

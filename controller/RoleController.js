@@ -9,6 +9,8 @@ module.exports.webReadRole = async (req, res) => {
     const user = await User.findOne({ where: { id: req.user.userId } });
     const roles = await Role.findAll()
 
+    res.locals.message = req.flash();
+
     res.render('pages/role/index', {
         title: 'Role',
         layout: 'layouts/app',
@@ -16,6 +18,43 @@ module.exports.webReadRole = async (req, res) => {
         roles: roles
 
     })
+
+}
+
+
+
+
+module.exports.webEditRole = async (req, res) => {
+
+    const user = await User.findOne({ where: { id: req.user.userId } })
+    const role = await Role.findOne({ where: { id: req.params.id } })
+
+
+    res.render('pages/role/edit', {
+        title: 'Edit Role',
+        layout: 'layouts/app',
+        user: user,
+        role: role
+    })
+
+}
+
+
+module.exports.webUpdateRole = async (req, res) => {
+
+    try {
+        let role = {
+            name: req.body.name
+        }
+
+        await Role.update(role, { where: { id: req.params.id } })
+        req.flash('success', 'Update Role Success');
+        res.redirect('/role')
+
+    } catch {
+        req.flash('error', 'Failed update Role')
+        res.redirect('/role')
+    }
 
 }
 
@@ -30,6 +69,8 @@ module.exports.webRemoveRole = async (req, res) => {
 
 }
 
+
+// API
 module.exports.readRole = (req, res) => {
 
     Role.findAll()

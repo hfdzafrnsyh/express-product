@@ -19,10 +19,13 @@ router.get('/home', authMiddleware, DashboardController.webReadDashboard);
 
 // role
 router.get('/role', authMiddleware, RoleController.webReadRole);
+router.post('/role/:id', authMiddleware, RoleController.webUpdateRole);
+router.get('/role/:id/edit', authMiddleware, RoleController.webEditRole);
 router.post('/role/:id', authMiddleware, RoleController.webRemoveRole)
 
 // roleuser
 router.get('/roleuser', authMiddleware, UserRoleController.webReadRoleUser);
 router.get('/roleuser/:id/edit', authMiddleware, UserRoleController.webEditRoleUser);
+router.post('/roleuser/:id', authMiddleware, UserRoleController.webUpdateRoleUser);
 
 module.exports = router;

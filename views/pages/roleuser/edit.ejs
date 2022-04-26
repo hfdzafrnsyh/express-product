@@ -1,37 +1,39 @@
 <h1 class="h3 mb-4 text-gray-800">Role User</h1>
 
-    <form action="/roleuser/<%= roleuser.id %>" method="post" enctype="multipart/form-data">
-              
-                    
-        <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
-                <div class="col-sm-10">
-                <input type="text" placeholder="name" value="<%= roleuser.users.name %>" name="name" required id="name" readonly class="form-control round-form " >                               
-                </div>
-                    
-            </div>
-         
-            <div class="input-group row">
-                <label for="staticEmail" class="col-sm-2 col-form-label">Role</label>
-                    <div class="input-group-prepend col-sm-10">
-                        <label class="input-group-text" for="inputGroupSelect01"><%= roleuser.roles.name %></label>
-                        <select class="custom-select" id="inputGroupSelect01">
-                            <% roles.forEach( (role , index) => { %>
-                                  <option value="<%= role.id %>"><%= role.name %></option>
-                            <% }) %>
-                      </select> 
-                    </div>
-                     
-            </div>
+<form class="user"  action="/roleuser/<%= roleuser.id %>" method="POST">
 
-         
 
-                    <div class="text-center">
-                        <a href="/categories" class="btn btn-primary">Back</a>
-                        <button type="submit" class="btn btn-success text-center">Update</button>
-                    </div>
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+            <input type="text" placeholder="name" value="<%= roleuser.users.name %>" required id="name"
+                readonly class="form-control form-control-user ">
+                <input type="hidden" value="<%= roleuser.users.id %>" name="id_user" required>
+        </div>
 
-        </form>
+    </div>
 
-  
-        
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Role</label>
+
+        <div class="input-group-prepend col-sm-10">
+            <label class="input-group-text" for="inputGroupSelect01"><%= roleuser.roles.name %></label>
+            <select class="custom-select" id="inputGroupSelect01" name="id_role" required>
+                <% roles.forEach( (role , index) => { %>
+                <option value="<%= role.id %>"><%= role.name %></option>
+                <% }) %>
+            </select>
+        </div>
+
+    </div>
+
+
+
+    <div class="text-center">
+        <a href="/roleuser" class="btn btn-primary">Back</a>
+        <button type="submit" class="btn btn-success btn-user text-center">Update</button>
+    </div>
+
+</form>
+
+

@@ -1,6 +1,13 @@
  <!-- Page Heading -->
  <h1 class="h3 mb-4 text-gray-800">Role</h1>
 
+
+   <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">
+  Add Role
+</button>
+
+
  <div class="table-role">
 
   <% if(locals.message) { %>
@@ -9,7 +16,7 @@
      <% } %>  
 
     <table class="table table-striped">
-        <thead>
+        <thead class="table-dark">
           <tr>
             <th scope="col">No</th>
             <th scope="col">Name</th>
@@ -37,3 +44,33 @@
       </table>
 
  </div>
+
+ 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Role</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/role/add" method="POST">
+            <div class="form-group row">
+              <label for="name" class="col-sm-2">Name</label>
+              <div class="col-sm-10">
+                <input type="text" name="name" required class="form-control form-control-user">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>

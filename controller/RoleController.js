@@ -22,6 +22,26 @@ module.exports.webReadRole = async (req, res) => {
 }
 
 
+module.exports.webCreatedRole = async (req, res) => {
+
+    try {
+
+        let role = {
+            name: req.body.name
+        }
+
+        await Role.create(role)
+        req.flash('success', 'Add Role Successfully')
+        res.redirect('/role')
+
+    } catch {
+        req.flash('error', 'Failed Add Role');
+        res.redirect('/role')
+    }
+
+}
+
+
 
 
 module.exports.webEditRole = async (req, res) => {

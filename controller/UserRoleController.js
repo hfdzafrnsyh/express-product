@@ -11,6 +11,7 @@ module.exports.webReadRoleUser = async (req, res) => {
 
     const user = await User.findOne({ where: { id: req.user.userId } });
     const roleuser = await UserRole.findAll({ attributes: ['id'], include: ['users', 'roles'] });
+    const roles = await Role.findAll();
 
     res.locals.message = req.flash();
 
@@ -18,8 +19,30 @@ module.exports.webReadRoleUser = async (req, res) => {
         title: 'Role User',
         layout: 'layouts/app',
         user: user,
-        roleusers: roleuser
+        roleusers: roleuser,
+        roles: roles
     })
+
+}
+
+
+module.exports.webCreatedRoleUser = async (req, res) => {
+
+    try {
+
+        let roleuser = {
+            id_user: req.body.id_user,
+            id_role: req.body.id_role
+        }
+
+        await UserRole.create(roleuser)
+        req.flash('success', 'Add User Role Successfully')
+        res.redirect('/roleuser');
+
+    } catch {
+        req.flash('error', 'Failed Add Role User');
+        res.redirect('/roleuser');
+    }
 
 }
 

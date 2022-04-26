@@ -14,6 +14,9 @@ router.get('/register', UserController.webRegister);
 router.post('/login', UserController.webPostLogin);
 router.post('/register', UserController.webPostRegister);
 
+router.get('/logout', authMiddleware, UserController.webLogout);
+
+// dashboard
 
 router.get('/home', authMiddleware, DashboardController.webReadDashboard);
 

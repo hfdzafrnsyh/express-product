@@ -100,6 +100,14 @@ module.exports.webPostRegister = async (req, res) => {
 }
 
 
+module.exports.webLogout = async (req, res) => {
+
+    res.clearCookie('jwt');
+    res.redirect('/')
+
+}
+
+
 // API
 
 module.exports.dataUser = (req, res) => {

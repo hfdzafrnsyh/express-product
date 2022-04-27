@@ -1,5 +1,5 @@
  <!-- Page Heading -->
- <h1 class="h3 mb-4 text-gray-800">Data User</h1>
+ <h1 class="h3 mb-4 text-gray-800">Data Category</h1>
 
  
  <div class="table-role">
@@ -17,14 +17,12 @@
         </thead>
         <tbody>
 
-            <% dataUser.forEach((users,index) => { %>
+            <% categorys.forEach((category,index) => { %>
                 <tr>
                   <th scope="row"><%= index += 1 %></th>
-                  <td><%= users.name %></td>
-                  <td><%= users.email %></td>
-                  <td><%= users.phone %></td>
+                  <td><%= category.name %></td>
                   <td>
-                      <img src="http://localhost:5000/public/user/<%= users.photo %>" style="width:50px;height50px" alt="">
+                      <img src="http://localhost:5000/public/category/<%= category.photo %>" style="width:50px;height50px" alt="">
                   </td>
                   <td>
                       <a href="#" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>

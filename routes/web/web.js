@@ -5,6 +5,8 @@ const UserController = require('../../controller/UserController');
 const DashboardController = require('../../controller/DashboardController');
 const RoleController = require('../../controller/RoleController');
 const UserRoleController = require('../../controller/UserRoleController');
+const CategoryController = require('../../controller/CategoryController');
+const ProductController = require('../../controller/ProductController');
 
 const authMiddleware = require('../../middleware/Auth');
 const imageUserMiddleware = require('../../middleware/imageUserMiddleware');
@@ -41,5 +43,11 @@ router.post('/roleuser/add', authMiddleware, UserRoleController.webCreatedRoleUs
 router.get('/roleuser', authMiddleware, UserRoleController.webReadRoleUser);
 router.get('/roleuser/:id/edit', authMiddleware, UserRoleController.webEditRoleUser);
 router.post('/roleuser/:id', authMiddleware, UserRoleController.webUpdateRoleUser);
+
+// category
+router.get('/category', authMiddleware, CategoryController.webReadCategory);
+
+// product
+router.get('/product', authMiddleware, ProductController.webReadProduct);
 
 module.exports = router;

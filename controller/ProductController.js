@@ -1,8 +1,28 @@
 const Model = require('../models/index');
 const Product = Model.product;
 const Category = Model.categories;
+const User = Model.users;
 
 
+// WEB
+module.exports.webReadProduct = async (req, res) => {
+
+    const user = await User.findOne({ where: { id: req.user.userId } })
+    const products = await Product.findAll({ include: ['categories'] })
+
+    res.locals.message = req.flash();
+
+    res.render('pages/product/index', {
+        title: 'Product',
+        layout: 'layouts/app',
+        user: user,
+        products: products
+    })
+
+}
+
+
+// API
 module.exports.readProduct = (req, res) => {
 
     Product.findAll({ include: ['categories'] })

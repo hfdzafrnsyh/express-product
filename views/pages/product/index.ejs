@@ -1,5 +1,5 @@
  <!-- Page Heading -->
- <h1 class="h3 mb-4 text-gray-800">Data User</h1>
+ <h1 class="h3 mb-4 text-gray-800">Data Product</h1>
 
  
  <div class="table-role">
@@ -10,6 +10,10 @@
           <tr>
             <th scope="col">No</th>
             <th scope="col">Name</th>
+            <th scope="col">Color</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Price</th>
+            <th scope="col">Category</th>
             <th scope="col">Image</th>
             <th scope="col">Action</th>
            
@@ -17,14 +21,16 @@
         </thead>
         <tbody>
 
-            <% dataUser.forEach((users,index) => { %>
+            <% products.forEach((product,index) => { %>
                 <tr>
                   <th scope="row"><%= index += 1 %></th>
-                  <td><%= users.name %></td>
-                  <td><%= users.email %></td>
-                  <td><%= users.phone %></td>
+                  <td><%= product.name %></td>
+                  <td><%= product.color %></td>
+                  <td><%= product.stock %></td>
+                  <td><%= product.price %></td>
+                  <td><%= product.categories.name %></td>
                   <td>
-                      <img src="http://localhost:5000/public/user/<%= users.photo %>" style="width:50px;height50px" alt="">
+                      <img src="http://localhost:5000/public/product/<%= product.image %>" style="width:50px;height50px" alt="">
                   </td>
                   <td>
                       <a href="#" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>

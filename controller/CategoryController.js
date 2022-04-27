@@ -1,6 +1,27 @@
 const Model = require('../models/index');
 const Category = Model.categories;
 const Product = Model.product;
+const User = Model.users;
+
+
+
+
+// WEB
+module.exports.webReadCategory = async (req, res) => {
+
+    const user = await User.findOne({ where: { id: req.user.userId } })
+    const categorys = await Category.findAll();
+
+    res.locals.message = req.flash();
+
+    res.render('pages/category/index', {
+        title: 'Product',
+        layout: 'layouts/app',
+        user: user,
+        categorys: categorys
+    })
+
+}
 
 
 // API

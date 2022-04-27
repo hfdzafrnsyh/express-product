@@ -191,10 +191,10 @@ module.exports.webUpdatePassword = async (req, res) => {
     await User.findOne({ where: { id: req.user.userId } })
         .then(user => {
             if (user && !bcrypt.compareSync(req.body.old_password, user.password)) {
-                req.flash('error', 'Password Wrong!')
+                req.flash('error', 'Password Dont Match!')
                 res.redirect('/user/password')
             } else if (req.body.new_password !== req.body.repeat_password) {
-                req.flash('error', 'Password Dont Match!')
+                req.flash('error', 'Repeat Password Dont Match!')
                 res.redirect('/user/password')
             } else {
                 let users = {

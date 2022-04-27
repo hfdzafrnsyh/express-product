@@ -1,4 +1,4 @@
-'use-strict'
+'use strict'
 
 const api = require('./api/api');
 const web = require('./web/web')

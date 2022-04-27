@@ -23,10 +23,10 @@ router.get('/profile/:id/edit', authMiddleware, UserController.webEditProfile);
 router.post('/profile/:id', authMiddleware, ...imageUserMiddleware, UserController.webUpdateProfile);
 router.get('/user/password', authMiddleware, UserController.webEditPassword);
 router.post('/user/password/:id', authMiddleware, UserController.webUpdatePassword);
+router.get('/user/list', authMiddleware, UserController.webReadDataUser);
 
 // dashboard
 router.get('/home', authMiddleware, DashboardController.webReadDashboard);
-
 
 // role
 router.post('/role/add', authMiddleware, RoleController.webCreatedRole);

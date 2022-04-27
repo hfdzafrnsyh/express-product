@@ -101,6 +101,20 @@ module.exports.webPostRegister = async (req, res) => {
 
 
 
+module.exports.webReadDataUser = async (req, res) => {
+
+    const user = await User.findOne({ where: { id: req.user.userId } })
+    const dataUser = await User.findAll();
+
+    res.render('pages/user/index', {
+        title: 'Data User',
+        layout: 'layouts/app',
+        user: user,
+        dataUser: dataUser
+    })
+
+}
+
 module.exports.webProfile = async (req, res) => {
 
     const user = await User.findOne({ where: { id: req.user.userId } });

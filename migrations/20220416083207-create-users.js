@@ -24,7 +24,8 @@ module.exports = {
         defaultValue: 'default.png'
       },
       phone: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: NULL
       },
       password: {
         type: Sequelize.STRING

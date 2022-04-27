@@ -15,11 +15,104 @@ module.exports.webReadCategory = async (req, res) => {
     res.locals.message = req.flash();
 
     res.render('pages/category/index', {
-        title: 'Product',
+        title: 'Category',
         layout: 'layouts/app',
         user: user,
         categorys: categorys
     })
+
+}
+
+
+
+module.exports.webCreatedCategory = async (req, res) => {
+
+    let files = req.file;
+
+    try {
+        if (!files) {
+            req.flash('error', 'Error Nothing Image');
+            res.redirect('/category')
+        } else {
+            let category = {
+                name: req.body.name,
+                image: req.file.filename
+            }
+
+            await Category.create(category);
+            req.flash('success', 'Add Category Successfully');
+            res.redirect('/category')
+        }
+    } catch {
+        req.flash('error', `Error + ${err}`);
+        res.redirect('/category')
+    }
+
+}
+
+
+module.exports.webEditCategory = async (req, res) => {
+
+    const user = await User.findOne({ where: { id: req.user.userId } });
+    const category = await Category.findOne({ where: { id: req.params.id } })
+
+    res.render('pages/category/edit', {
+        title: 'Edit Category',
+        layout: 'layouts/app',
+        user: user,
+        category: category
+    })
+
+}
+
+
+
+module.exports.webUpdateCategory = async (req, res) => {
+
+    let files = req.file;
+
+    try {
+
+        if (!files) {
+
+            let category = {
+                name: req.body.name
+            }
+
+            await Category.update(category, { where: { id: req.params.id } });
+            req.flash('success', 'Update Category Successfully');
+            res.redirect('/category')
+        } else {
+            let category = {
+                name: req.body.name,
+                image: req.file.filename
+            }
+
+            await Category.update(category, { where: { id: req.params.id } });
+            req.flash('success', 'Update Category Successfully');
+            res.redirect('/category')
+        }
+
+    } catch {
+        req.flash('error', `Error`)
+        res.redirect('/category')
+    }
+
+}
+
+
+module.exports.webRemoveCategory = async (req, res) => {
+
+    try {
+
+        await Category.destroy({ where: { id: req.params.id } })
+        req.flash('success', 'Delete Category Successfully')
+        res.redirect('/category');
+
+    } catch {
+        req.flash('error', `Error Remove Category`);
+        res.redirect('/category')
+    }
 
 }
 

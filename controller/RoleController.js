@@ -82,6 +82,7 @@ module.exports.webRemoveRole = async (req, res) => {
 
     try {
         await Role.destroy({ where: { id: req.params.id } });
+        req.flash('success', 'Delete Role Successfully')
         res.redirect('/role')
     } catch (err) {
         res.send('error' + err)

@@ -4,6 +4,12 @@
  
  <div class="table-role">
 
+  <% if(locals.message) { %>
+    <strong class="text-danger"><%= message.error %> </strong>
+    <strong class="text-success"><%= message.success %> </strong>
+     <% } %>  
+
+
 
     <table class="table table-striped">
         <thead class="table-dark">

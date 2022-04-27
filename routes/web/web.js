@@ -10,6 +10,9 @@ const ProductController = require('../../controller/ProductController');
 
 const authMiddleware = require('../../middleware/Auth');
 const imageUserMiddleware = require('../../middleware/imageUserMiddleware');
+const categoryImageMiddleware = require('../../middleware/categoryImageMiddleware');
+const productImageMiddleware = require('../../middleware/productImageMiddleware');
+
 
 
 router.get('/login', UserController.webLogin);
@@ -45,7 +48,12 @@ router.get('/roleuser/:id/edit', authMiddleware, UserRoleController.webEditRoleU
 router.post('/roleuser/:id', authMiddleware, UserRoleController.webUpdateRoleUser);
 
 // category
+router.post('/category/add', authMiddleware, ...categoryImageMiddleware, CategoryController.webCreatedCategory);
 router.get('/category', authMiddleware, CategoryController.webReadCategory);
+router.post('/category/:id', authMiddleware, ...categoryImageMiddleware, CategoryController.webUpdateCategory);
+router.get('/category/:id/edit', authMiddleware, CategoryController.webEditCategory);
+router.post('/category/:id/delete', authMiddleware, CategoryController.webRemoveCategory);
+
 
 // product
 router.get('/product', authMiddleware, ProductController.webReadProduct);

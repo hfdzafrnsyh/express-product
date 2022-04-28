@@ -116,6 +116,20 @@ module.exports.webUpdateProduct = async (req, res) => {
 
 }
 
+
+module.exports.webRemoveProduct = async (req, res) => {
+
+    try {
+        await Product.destroy({ where: { id: req.params.id } })
+        req.flash('success', 'Delete Product Successfully');
+        res.redirect('/product');
+    } catch {
+        req.flash('error', 'Error Delete Product');
+        res.redirect('/product')
+    }
+
+}
+
 // API
 module.exports.readProduct = (req, res) => {
 

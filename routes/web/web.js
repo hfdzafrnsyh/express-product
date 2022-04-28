@@ -60,6 +60,6 @@ router.post('/product/add', authMiddleware, ...productImageMiddleware, ProductCo
 router.get('/product', authMiddleware, ProductController.webReadProduct);
 router.post('/product/:id', authMiddleware, ...productImageMiddleware, ProductController.webUpdateProduct);
 router.get('/product/:id/edit', authMiddleware, ProductController.webEditProduct);
-// router.post('/product/:id', authMiddleware, ProductController.webRemoveProduct);
+router.post('/product/:id/delete', authMiddleware, ProductController.webRemoveProduct);
 
 module.exports = router;

@@ -58,7 +58,7 @@ router.post('/category/:id/delete', authMiddleware, CategoryController.webRemove
 // product
 router.post('/product/add', authMiddleware, ...productImageMiddleware, ProductController.webCreatedProduct);
 router.get('/product', authMiddleware, ProductController.webReadProduct);
-// router.post('/product/:id', authMiddleware, ...productImageMiddleware, ProductController.webUpdateProduct);
+router.post('/product/:id', authMiddleware, ...productImageMiddleware, ProductController.webUpdateProduct);
 router.get('/product/:id/edit', authMiddleware, ProductController.webEditProduct);
 // router.post('/product/:id', authMiddleware, ProductController.webRemoveProduct);
 

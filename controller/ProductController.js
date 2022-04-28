@@ -74,6 +74,48 @@ module.exports.webEditProduct = async (req, res) => {
 
 }
 
+
+module.exports.webUpdateProduct = async (req, res) => {
+
+    let files = req.file;
+
+    try {
+        if (!files) {
+            let product = {
+                name: req.body.name,
+                color: req.body.color,
+                stock: req.body.stock,
+                price: req.body.price,
+                categoryId: req.body.id_category
+            }
+
+            await Product.update(product, { where: { id: req.params.id } })
+            req.flash('success', 'Edit Product Successfully');
+            res.redirect('/product')
+
+        } else {
+
+            let product = {
+                name: req.body.name,
+                color: req.body.color,
+                stock: req.body.stock,
+                price: req.body.price,
+                categoryId: req.body.id_category,
+                image: req.file.filename
+            }
+
+            await Product.update(product, { where: { id: req.params.id } })
+            req.flash('success', 'Edit Product Successfully');
+            res.redirect('/product')
+
+        }
+    } catch {
+        req.flash('error', 'Error Add Product');
+        res.redirect('/product')
+    }
+
+}
+
 // API
 module.exports.readProduct = (req, res) => {
 

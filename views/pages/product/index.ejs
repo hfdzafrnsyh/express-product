@@ -44,8 +44,10 @@
                       <img src="http://localhost:5000/public/upload/product/<%= product.image %>" style="width:50px;height50px" alt="">
                   </td>
                   <td>
-                      <a href="#" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
-                     
+                      <a href="/product/<%= product.id %>/edit" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                      <form action="/product/<%= product.id%>" method="POST">
+                        <button type="submit" class="btn btn-danger btn-circle btn-sm justify-content-end"><i class="fas fa-trash"></i></button>
+                      </form>
                   </td>
                 </tr>
                 <% }) %>

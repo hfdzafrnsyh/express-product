@@ -1,0 +1,70 @@
+<h1 class="h3 mb-4 text-gray-800">Update Product</h1>
+
+<form class="user"  action="/product/<%= product.id %>" method="POST" enctype="multipart/form-data">
+
+
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+            <input type="text" placeholder="name" value="<%= product.name %>" required id="name"
+                class="form-control form-control-user ">
+                
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <label for="name" class="col-sm-2">Color</label>
+        <div class="col-sm-10">
+          <input type="text" name="color" required value="<%= product.color %>" class="form-control form-control-user">
+        </div>
+      </div>
+    <div class="form-group row">
+        <label for="name" class="col-sm-2">Stock</label>
+        <div class="col-sm-10">
+          <input type="number" name="stock" required value="<%= product.stock %>" class="form-control form-control-user">
+        </div>
+      </div>
+    <div class="form-group row">
+        <label for="name" class="col-sm-2">Price</label>
+        <div class="col-sm-10">
+          <input type="text" name="price" required value="<%= product.price %>" class="form-control form-control-user">
+        </div>
+      </div>
+
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Category</label>
+
+        <div class="input-group-prepend col-sm-10 ">
+            <label class="input-group-text" for="inputGroupSelect01"><%= product.categories.name %></label>
+            <select class="custom-select" id="inputGroupSelect01" name="id_role" required>
+                <% categorys.forEach( (category , index) => { %>
+                <option value="<%= category.id %>"><%= category.name %></option>
+                <% }) %>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Image</label>
+        
+        <div class="col-sm-4">
+            <img src="http://localhost:5000/public/upload/product/<%= product.image %>" style="width:150px;height:150px" alt="">
+        </div>
+
+        <div class="col-sm-6">
+            <input type="file"id="image" name="image"
+                class="form-control">
+        </div>
+
+    </div>
+
+    <div class="text-center">
+        <a href="/product" class="btn btn-primary btn-user">Back</a>
+        <button type="submit" class="btn btn-success btn-user text-center">Update</button>
+    </div>
+
+</form>
+
+

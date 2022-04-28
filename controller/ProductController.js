@@ -56,6 +56,23 @@ module.exports.webCreatedProduct = async (req, res) => {
 
 }
 
+module.exports.webEditProduct = async (req, res) => {
+
+    const user = await User.findOne({ where: { id: req.user.userId } });
+    const product = await Product.findOne({ include: ['categories'], where: { id: req.params.id } });
+    const categorys = await Category.findAll();
+
+    res.locals.message = req.flash();
+
+    res.render('pages/product/edit', {
+        title: 'Edit Product',
+        layout: 'layouts/app',
+        user: user,
+        product: product,
+        categorys: categorys
+    })
+
+}
 
 // API
 module.exports.readProduct = (req, res) => {

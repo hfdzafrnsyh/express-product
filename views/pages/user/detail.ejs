@@ -1,0 +1,32 @@
+<h1 class="h3 mb-4 text-gray-800">User Info</h1>
+
+
+<div class="card shadow mb-4">
+ <!-- Card Header - Accordion -->
+ <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+     <h6 class="m-0 font-weight-bold text-primary"><%= dataUser.name %></h6>
+ </a>
+ <!-- Card Content - Collapse -->
+ <div class="collapse show" id="collapseCardExample" style="">
+     <div class="card-body">
+       <div class="row">
+           <div class="col-sm-6 text-center">
+           
+             <h5>Email : <%= dataUser.email %></h5>
+             <h5>Name : <%= dataUser.name %></h5>
+             <h5>Phone : <%= dataUser.phone %></h5>
+            
+         </div>
+           <div class="col-sm-6 text-center">
+             <img src="http://localhost:5000/public/user/<%= dataUser.photo %>" style="width:150px;"/>
+
+           </div>
+       </div>
+     </div>
+ </div>
+</div>
+
+ <div class="button-back text-center">
+     <a href="/user/list" class="btn btn-primary btn-user">Back</a>
+ </div>
+

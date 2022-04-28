@@ -29,6 +29,7 @@ router.post('/profile/:id', authMiddleware, ...imageUserMiddleware, UserControll
 router.get('/user/password', authMiddleware, UserController.webEditPassword);
 router.post('/user/password/:id', authMiddleware, UserController.webUpdatePassword);
 router.get('/user/list', authMiddleware, UserController.webReadDataUser);
+router.get('/user/:id/detail', authMiddleware, UserController.webDetailUser);
 
 // dashboard
 router.get('/home', authMiddleware, DashboardController.webReadDashboard);

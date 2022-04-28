@@ -129,6 +129,22 @@ module.exports.webProfile = async (req, res) => {
 
 }
 
+module.exports.webDetailUser = async (req, res) => {
+
+    const user = await User.findOne({ where: { id: req.user.userId } });
+    const dataUser = await User.findOne({ where: { id: req.params.id } });
+
+    res.locals.message = req.flash();
+
+    res.render('pages/user/detail', {
+        title: 'Detail User',
+        layout: 'layouts/app',
+        user: user,
+        dataUser: dataUser
+    })
+
+}
+
 
 module.exports.webEditProfile = async (req, res) => {
 

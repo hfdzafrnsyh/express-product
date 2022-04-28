@@ -9,6 +9,7 @@ module.exports.webReadProduct = async (req, res) => {
 
     const user = await User.findOne({ where: { id: req.user.userId } })
     const products = await Product.findAll({ include: ['categories'] })
+    const categorys = await Category.findAll();
 
     res.locals.message = req.flash();
 
@@ -16,8 +17,42 @@ module.exports.webReadProduct = async (req, res) => {
         title: 'Product',
         layout: 'layouts/app',
         user: user,
-        products: products
+        products: products,
+        categorys: categorys
     })
+
+}
+
+
+module.exports.webCreatedProduct = async (req, res) => {
+
+    let files = req.file;
+
+    try {
+
+        if (!files) {
+            req.flash('error', 'Error Nothing Image');
+            res.redirect('/product')
+        } else {
+
+            let products = {
+                name: req.body.name,
+                color: req.body.color,
+                stock: req.body.stock,
+                price: req.body.price,
+                categoryId: req.body.id_category,
+                image: req.file.filename
+            }
+
+            await Product.create(products);
+            req.flash('success', 'Add Product Successfully');
+            req.redirect('/product')
+
+        }
+    } catch {
+        req.flash('error', 'Error Add Product')
+        res.redirect('/product');
+    }
 
 }
 

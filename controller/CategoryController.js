@@ -44,7 +44,7 @@ module.exports.webCreatedCategory = async (req, res) => {
             res.redirect('/category')
         }
     } catch {
-        req.flash('error', `Error + ${err}`);
+        req.flash('error', `Error`);
         res.redirect('/category')
     }
 

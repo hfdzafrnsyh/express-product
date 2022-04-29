@@ -18,7 +18,8 @@ module.exports.webReadCategory = async (req, res) => {
         title: 'Category',
         layout: 'layouts/app',
         user: user,
-        categorys: categorys
+        categorys: categorys,
+        csrfToken: req.csrfToken()
     })
 
 }
@@ -60,7 +61,8 @@ module.exports.webEditCategory = async (req, res) => {
         title: 'Edit Category',
         layout: 'layouts/app',
         user: user,
-        category: category
+        category: category,
+        csrfToken: req.csrfToken()
     })
 
 }

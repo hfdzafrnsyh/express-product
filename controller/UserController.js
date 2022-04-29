@@ -11,6 +11,7 @@ const axios = require('axios');
 module.exports.webLogin = (req, res) => {
 
     res.locals.message = req.flash();
+
     res.render('auth/login',
         {
             title: "Login",
@@ -25,7 +26,6 @@ module.exports.webLogin = (req, res) => {
 
 
 module.exports.webPostLogin = async (req, res, next) => {
-
 
     const user = await User.findOne({ where: { email: req.body.email } })
 
@@ -156,7 +156,8 @@ module.exports.webEditProfile = async (req, res) => {
     res.render('pages/user/edit', {
         title: "Edit Profile",
         layout: 'layouts/app',
-        user: user
+        user: user,
+        csrfToken: req.csrfToken()
     })
 
 }
@@ -212,7 +213,8 @@ module.exports.webEditPassword = async (req, res) => {
     res.render('pages/user/password', {
         title: 'Edit Password',
         layout: 'layouts/app',
-        user: user
+        user: user,
+        csrfToken: req.csrfToken()
     })
 
 }

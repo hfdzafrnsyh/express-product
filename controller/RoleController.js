@@ -15,8 +15,8 @@ module.exports.webReadRole = async (req, res) => {
         title: 'Role',
         layout: 'layouts/app',
         user: user,
-        roles: roles
-
+        roles: roles,
+        csrfToken: req.csrfToken()
     })
 
 }
@@ -54,7 +54,8 @@ module.exports.webEditRole = async (req, res) => {
         title: 'Edit Role',
         layout: 'layouts/app',
         user: user,
-        role: role
+        role: role,
+        csrfToken: req.csrfToken()
     })
 
 }

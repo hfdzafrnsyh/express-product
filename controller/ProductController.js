@@ -18,7 +18,8 @@ module.exports.webReadProduct = async (req, res) => {
         layout: 'layouts/app',
         user: user,
         products: products,
-        categorys: categorys
+        categorys: categorys,
+
     })
 
 }
@@ -44,7 +45,8 @@ module.exports.webCreatedProduct = async (req, res) => {
                 image: req.file.filename
             }
 
-            await Product.create(products);
+            // await Product.create(products);
+            console.log(products)
             req.flash('success', 'Add Product Successfully');
             req.redirect('/product')
 
@@ -69,7 +71,8 @@ module.exports.webEditProduct = async (req, res) => {
         layout: 'layouts/app',
         user: user,
         product: product,
-        categorys: categorys
+        categorys: categorys,
+        csrfToken: req.csrfToken()
     })
 
 }

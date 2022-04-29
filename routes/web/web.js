@@ -5,7 +5,7 @@ const authMiddleware = require('../../middleware/Auth');
 const imageUserMiddleware = require('../../middleware/imageUserMiddleware');
 const categoryImageMiddleware = require('../../middleware/categoryImageMiddleware');
 const productImageMiddleware = require('../../middleware/productImageMiddleware');
-const csrfTokenMiddleware = require('../../middleware/csrfTokenMiddleware');
+const csrfProtection = require('../../middleware/csrfProtection');
 
 const UserController = require('../../controller/UserController');
 const DashboardController = require('../../controller/DashboardController');
@@ -18,19 +18,19 @@ const ProductController = require('../../controller/ProductController');
 
 
 
-router.get('/login', csrfTokenMiddleware, UserController.webLogin);
-router.get('/register', csrfTokenMiddleware, UserController.webRegister);
-router.post('/login', csrfTokenMiddleware, UserController.webPostLogin);
-router.post('/register', csrfTokenMiddleware, UserController.webPostRegister);
+router.get('/login', csrfProtection, UserController.webLogin);
+router.get('/register', csrfProtection, UserController.webRegister);
+router.post('/login', csrfProtection, UserController.webPostLogin);
+router.post('/register', csrfProtection, UserController.webPostRegister);
 
 router.get('/logout', authMiddleware, UserController.webLogout);
 
 // user
 router.get('/profile', authMiddleware, UserController.webProfile);
-router.get('/profile/:id/edit', authMiddleware, UserController.webEditProfile);
-router.post('/profile/:id', authMiddleware, ...imageUserMiddleware, UserController.webUpdateProfile);
-router.get('/user/password', authMiddleware, UserController.webEditPassword);
-router.post('/user/password/:id', authMiddleware, UserController.webUpdatePassword);
+router.get('/profile/:id/edit', authMiddleware, csrfProtection, UserController.webEditProfile);
+router.post('/profile/:id', authMiddleware, csrfProtection, ...imageUserMiddleware, UserController.webUpdateProfile);
+router.get('/user/password', authMiddleware, csrfProtection, UserController.webEditPassword);
+router.post('/user/password/:id', authMiddleware, csrfProtection, UserController.webUpdatePassword);
 router.get('/user/list', authMiddleware, UserController.webReadDataUser);
 router.get('/user/:id/detail', authMiddleware, UserController.webDetailUser);
 
@@ -38,25 +38,25 @@ router.get('/user/:id/detail', authMiddleware, UserController.webDetailUser);
 router.get('/home', authMiddleware, DashboardController.webReadDashboard);
 
 // role
-router.post('/role/add', authMiddleware, RoleController.webCreatedRole);
-router.get('/role', authMiddleware, RoleController.webReadRole);
-router.post('/role/:id', authMiddleware, RoleController.webUpdateRole);
-router.get('/role/:id/edit', authMiddleware, RoleController.webEditRole);
-router.post('/role/:id', authMiddleware, RoleController.webRemoveRole)
+router.post('/role/add', authMiddleware, csrfProtection, RoleController.webCreatedRole);
+router.get('/role', authMiddleware, csrfProtection, RoleController.webReadRole);
+router.post('/role/:id', authMiddleware, csrfProtection, RoleController.webUpdateRole);
+router.get('/role/:id/edit', authMiddleware, csrfProtection, RoleController.webEditRole);
+router.post('/role/:id/delete', authMiddleware, csrfProtection, RoleController.webRemoveRole)
 
 
 // roleuser
-router.post('/roleuser/add', authMiddleware, UserRoleController.webCreatedRoleUser);
-router.get('/roleuser', authMiddleware, UserRoleController.webReadRoleUser);
-router.get('/roleuser/:id/edit', authMiddleware, UserRoleController.webEditRoleUser);
-router.post('/roleuser/:id', authMiddleware, UserRoleController.webUpdateRoleUser);
+router.post('/roleuser/add', authMiddleware, csrfProtection, UserRoleController.webCreatedRoleUser);
+router.get('/roleuser', authMiddleware, csrfProtection, UserRoleController.webReadRoleUser);
+router.get('/roleuser/:id/edit', authMiddleware, csrfProtection, UserRoleController.webEditRoleUser);
+router.post('/roleuser/:id', authMiddleware, csrfProtection, UserRoleController.webUpdateRoleUser);
 
 // category
-router.post('/category/add', authMiddleware, ...categoryImageMiddleware, CategoryController.webCreatedCategory);
-router.get('/category', authMiddleware, CategoryController.webReadCategory);
-router.post('/category/:id', authMiddleware, ...categoryImageMiddleware, CategoryController.webUpdateCategory);
-router.get('/category/:id/edit', authMiddleware, CategoryController.webEditCategory);
-router.post('/category/:id/delete', authMiddleware, CategoryController.webRemoveCategory);
+router.post('/category/add', authMiddleware, csrfProtection, ...categoryImageMiddleware, CategoryController.webCreatedCategory);
+router.get('/category', authMiddleware, csrfProtection, CategoryController.webReadCategory);
+router.post('/category/:id', authMiddleware, csrfProtection, ...categoryImageMiddleware, CategoryController.webUpdateCategory);
+router.get('/category/:id/edit', authMiddleware, csrfProtection, CategoryController.webEditCategory);
+router.post('/category/:id/delete', authMiddleware, csrfProtection, CategoryController.webRemoveCategory);
 
 
 // product

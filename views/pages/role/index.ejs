@@ -33,8 +33,9 @@
                   <td><%= role.name %></td>
                   <td>
                       <a href="/role/<%= role.id %>/edit" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
-                      <form action="/role/<%= role.id%>" method="POST">
+                      <form action="/role/<%= role.id%>/delete" method="POST">
                         <button type="submit" class="btn btn-danger btn-circle btn-sm justify-content-end"><i class="fas fa-trash"></i></button>
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                       </form>
                   </td>
                 </tr>
@@ -70,6 +71,7 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Add</button>
           </div>
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         </form>
     </div>
   </div>

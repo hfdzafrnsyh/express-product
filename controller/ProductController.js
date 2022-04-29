@@ -19,6 +19,7 @@ module.exports.webReadProduct = async (req, res) => {
         user: user,
         products: products,
         categorys: categorys,
+        csrfToken: req.csrfToken()
 
     })
 
@@ -30,7 +31,6 @@ module.exports.webCreatedProduct = async (req, res) => {
     let files = req.file;
 
     try {
-
         if (!files) {
             req.flash('error', 'Error Nothing Image');
             res.redirect('/product')
@@ -45,15 +45,13 @@ module.exports.webCreatedProduct = async (req, res) => {
                 image: req.file.filename
             }
 
-            // await Product.create(products);
-            console.log(products)
+            await Product.create(products)
             req.flash('success', 'Add Product Successfully');
-            req.redirect('/product')
-
+            res.redirect('/product')
         }
     } catch {
-        req.flash('error', 'Error Add Product')
-        res.redirect('/product');
+        req.flash('error', `Error`);
+        res.redirect('/product')
     }
 
 }

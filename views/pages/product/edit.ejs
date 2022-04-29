@@ -1,6 +1,6 @@
 <h1 class="h3 mb-4 text-gray-800">Update Product</h1>
 
-<form class="user"  action="/product/<%= product.id %>" method="POST" enctype="multipart/form-data">
+<form class="user"  action="/product/<%= product.id %>?_csrf=<%= csrfToken %>" method="POST" enctype="multipart/form-data">
 
 
     <div class="form-group row">

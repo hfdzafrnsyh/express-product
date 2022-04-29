@@ -60,10 +60,10 @@ router.post('/category/:id/delete', authMiddleware, csrfProtection, CategoryCont
 
 
 // product
-router.post('/product/add', authMiddleware, ...productImageMiddleware, ProductController.webCreatedProduct);
-router.get('/product', authMiddleware, ProductController.webReadProduct);
-router.post('/product/:id', authMiddleware, ...productImageMiddleware, ProductController.webUpdateProduct);
-router.get('/product/:id/edit', authMiddleware, ProductController.webEditProduct);
-router.post('/product/:id/delete', authMiddleware, ProductController.webRemoveProduct);
+router.post('/product/add', authMiddleware, csrfProtection, ...productImageMiddleware, ProductController.webCreatedProduct);
+router.get('/product', authMiddleware, csrfProtection, ProductController.webReadProduct);
+router.post('/product/:id', authMiddleware, csrfProtection, ...productImageMiddleware, ProductController.webUpdateProduct);
+router.get('/product/:id/edit', authMiddleware, csrfProtection, ProductController.webEditProduct);
+router.post('/product/:id/delete', authMiddleware, csrfProtection, ProductController.webRemoveProduct);
 
 module.exports = router;

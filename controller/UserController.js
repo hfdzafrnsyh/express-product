@@ -250,6 +250,7 @@ module.exports.webUpdatePassword = async (req, res) => {
 module.exports.webLogout = async (req, res) => {
 
     res.clearCookie('jwt');
+    res.clearCookie('_csrf');
     res.redirect('/')
 
 }

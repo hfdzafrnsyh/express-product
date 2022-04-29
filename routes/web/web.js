@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
+const authMiddleware = require('../../middleware/Auth');
+const imageUserMiddleware = require('../../middleware/imageUserMiddleware');
+const categoryImageMiddleware = require('../../middleware/categoryImageMiddleware');
+const productImageMiddleware = require('../../middleware/productImageMiddleware');
+const csrfTokenMiddleware = require('../../middleware/csrfTokenMiddleware');
+
 const UserController = require('../../controller/UserController');
 const DashboardController = require('../../controller/DashboardController');
 const RoleController = require('../../controller/RoleController');
@@ -8,17 +14,14 @@ const UserRoleController = require('../../controller/UserRoleController');
 const CategoryController = require('../../controller/CategoryController');
 const ProductController = require('../../controller/ProductController');
 
-const authMiddleware = require('../../middleware/Auth');
-const imageUserMiddleware = require('../../middleware/imageUserMiddleware');
-const categoryImageMiddleware = require('../../middleware/categoryImageMiddleware');
-const productImageMiddleware = require('../../middleware/productImageMiddleware');
 
 
 
-router.get('/login', UserController.webLogin);
-router.get('/register', UserController.webRegister);
-router.post('/login', UserController.webPostLogin);
-router.post('/register', UserController.webPostRegister);
+
+router.get('/login', csrfTokenMiddleware, UserController.webLogin);
+router.get('/register', csrfTokenMiddleware, UserController.webRegister);
+router.post('/login', csrfTokenMiddleware, UserController.webPostLogin);
+router.post('/register', csrfTokenMiddleware, UserController.webPostRegister);
 
 router.get('/logout', authMiddleware, UserController.webLogout);
 

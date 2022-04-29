@@ -7,7 +7,6 @@ const session = require('express-session');
 const expressEjsLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const path = require('path');
-const csurf = require('csurf');
 
 
 const PORT = process.env.PORT || 5000;
@@ -46,7 +45,6 @@ require('dotenv').config();
 
 const routes = require('./routes/routes');
 routes(app);
-
 
 
 app.listen(PORT, () => {

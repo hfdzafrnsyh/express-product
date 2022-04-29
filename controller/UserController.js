@@ -15,6 +15,7 @@ module.exports.webLogin = (req, res) => {
         {
             title: "Login",
             layout: false,
+            csrfToken: req.csrfToken()
         }
     );
 
@@ -59,7 +60,8 @@ module.exports.webRegister = (req, res) => {
     res.locals.message = req.flash()
     res.render('auth/register', {
         title: 'Register',
-        layout: false
+        layout: false,
+        csrfToken: req.csrfToken()
     })
 }
 

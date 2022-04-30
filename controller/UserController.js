@@ -123,7 +123,7 @@ module.exports.webReadDataUser = async (req, res) => {
     const user = await User.findOne({ where: { id: req.user.userId } })
     const dataUser = await User.findAndCountAll({
         limit: size,
-        offset: page * size
+        offset: page
     });
 
     res.render('pages/user/index', {

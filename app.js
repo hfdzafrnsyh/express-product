@@ -8,7 +8,7 @@ const methodOverride = require('method-override');
 const expressEjsLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const path = require('path');
-
+const morgan = require('morgan');
 
 
 const PORT = process.env.PORT || 5000;
@@ -28,6 +28,8 @@ app.use('/public', express.static(path.join(__dirname, 'public')))
 
 app.set('view engine', 'ejs');
 app.use(expressEjsLayouts);
+
+app.use(morgan('tiny'))
 
 // for flash message
 app.use(cookieParser('secret'));

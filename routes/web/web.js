@@ -40,9 +40,9 @@ router.get('/home', authMiddleware, DashboardController.webReadDashboard);
 // role
 router.post('/role/add', authMiddleware, csrfProtection, RoleController.webCreatedRole);
 router.get('/role', authMiddleware, csrfProtection, RoleController.webReadRole);
-router.post('/role/:id', authMiddleware, csrfProtection, RoleController.webUpdateRole);
+router.put('/role/:id', authMiddleware, csrfProtection, RoleController.webUpdateRole);
 router.get('/role/:id/edit', authMiddleware, csrfProtection, RoleController.webEditRole);
-router.post('/role/:id/delete', authMiddleware, csrfProtection, RoleController.webRemoveRole)
+router.delete('/role/:id', authMiddleware, csrfProtection, RoleController.webRemoveRole)
 
 
 // roleuser

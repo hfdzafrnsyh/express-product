@@ -4,11 +4,10 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const methodOverride = require('method-override');
 const expressEjsLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const path = require('path');
-
-
 
 
 
@@ -43,6 +42,15 @@ app.use(session({
 
 app.use(flash());
 
+// method override
+app.use(methodOverride(function (req, res) {
+    if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+        // look in urlencoded POST bodies and delete it
+        var method = req.body._method
+        delete req.body._method
+        return method
+    }
+}))
 
 require('dotenv').config();
 

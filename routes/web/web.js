@@ -30,7 +30,7 @@ router.get('/profile', authMiddleware, UserController.webProfile);
 router.get('/profile/:id/edit', authMiddleware, csrfProtection, UserController.webEditProfile);
 router.post('/profile/:id', authMiddleware, csrfProtection, ...imageUserMiddleware, UserController.webUpdateProfile);
 router.get('/user/password', authMiddleware, csrfProtection, UserController.webEditPassword);
-router.post('/user/password/:id', authMiddleware, csrfProtection, UserController.webUpdatePassword);
+router.put('/user/password/:id', authMiddleware, csrfProtection, UserController.webUpdatePassword);
 router.get('/user/list', authMiddleware, UserController.webReadDataUser);
 router.get('/user/:id/detail', authMiddleware, UserController.webDetailUser);
 
@@ -49,14 +49,14 @@ router.delete('/role/:id', authMiddleware, csrfProtection, RoleController.webRem
 router.post('/roleuser/add', authMiddleware, csrfProtection, UserRoleController.webCreatedRoleUser);
 router.get('/roleuser', authMiddleware, csrfProtection, UserRoleController.webReadRoleUser);
 router.get('/roleuser/:id/edit', authMiddleware, csrfProtection, UserRoleController.webEditRoleUser);
-router.post('/roleuser/:id', authMiddleware, csrfProtection, UserRoleController.webUpdateRoleUser);
+router.put('/roleuser/:id', authMiddleware, csrfProtection, UserRoleController.webUpdateRoleUser);
 
 // category
 router.post('/category/add', authMiddleware, csrfProtection, ...categoryImageMiddleware, CategoryController.webCreatedCategory);
 router.get('/category', authMiddleware, csrfProtection, CategoryController.webReadCategory);
 router.post('/category/:id', authMiddleware, csrfProtection, ...categoryImageMiddleware, CategoryController.webUpdateCategory);
 router.get('/category/:id/edit', authMiddleware, csrfProtection, CategoryController.webEditCategory);
-router.post('/category/:id/delete', authMiddleware, csrfProtection, CategoryController.webRemoveCategory);
+router.delete('/category/:id', authMiddleware, csrfProtection, CategoryController.webRemoveCategory);
 
 
 // product
@@ -64,6 +64,6 @@ router.post('/product/add', authMiddleware, csrfProtection, ...productImageMiddl
 router.get('/product', authMiddleware, csrfProtection, ProductController.webReadProduct);
 router.post('/product/:id', authMiddleware, csrfProtection, ...productImageMiddleware, ProductController.webUpdateProduct);
 router.get('/product/:id/edit', authMiddleware, csrfProtection, ProductController.webEditProduct);
-router.post('/product/:id/delete', authMiddleware, csrfProtection, ProductController.webRemoveProduct);
+router.delete('/product/:id', authMiddleware, csrfProtection, ProductController.webRemoveProduct);
 
 module.exports = router;

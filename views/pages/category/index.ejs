@@ -38,7 +38,8 @@
                   </td>
                   <td>
                       <a href="/category/<%= category.id %>/edit" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
-                      <form action="/category/<%= category.id%>/delete" method="POST">
+                      <form action="/category/<%= category.id%>" method="POST">
+                        <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="btn btn-danger btn-circle btn-sm justify-content-end"><i class="fas fa-trash"></i></button>
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                       </form>

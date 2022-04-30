@@ -1,8 +1,7 @@
 <h1 class="h3 mb-4 text-gray-800">Edit Profile</h1>
 
 <form class="user"  action="/profile/<%= user.id %>?_csrf=<%= csrfToken %>" method="POST" enctype="multipart/form-data">
-
-
+  
     <div class="form-group row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-10">

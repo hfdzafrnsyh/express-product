@@ -38,6 +38,16 @@
         </tbody>
       </table>
 
+      <div class="pagination justify-content-center" id="dataTable_paginate">
+        <ul class="pagination">
+          <% for(let i=0; i<totalPages; i++){%>
+            <li class="paginate_button page-item">
+              <a href="/user/list?page=<%=i%>" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link"><%=i + 1%></a>
+            </li>
+            <% } %>
+      </ul>
+    </div>
+
  </div>
 
 

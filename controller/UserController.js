@@ -107,23 +107,16 @@ module.exports.webPostRegister = async (req, res) => {
 
 module.exports.webReadDataUser = async (req, res) => {
 
-    const pageAsNumber = Number.parseInt(req.query.page);
-    const sizeAsNumber = Number.parseInt(req.query.size);
 
-    let page = 0;
-    if (!Number.isNaN(pageAsNumber) && pageAsNumber > 0) {
-        page = pageAsNumber;
-    }
+    const page = Number.parseInt(req.query.page);
+    const size = Number.parseInt(req.query.size);
 
-    let size = 5;
-    if (!Number.isNaN(sizeAsNumber) && !(sizeAsNumber > 5) && !(sizeAsNumber < 1)) {
-        size = sizeAsNumber;
-    }
+    const limit = size ? + size : 5;
 
     const user = await User.findOne({ where: { id: req.user.userId } })
     const dataUser = await User.findAndCountAll({
-        limit: size,
-        offset: page
+        limit: limit,
+        offset: page ? page * limit : 0
     });
 
     res.render('pages/user/index', {
@@ -131,9 +124,8 @@ module.exports.webReadDataUser = async (req, res) => {
         layout: 'layouts/app',
         user: user,
         dataUser: dataUser.rows,
-        totalPages: Math.ceil(dataUser.count / Number.parseInt(size))
+        totalPages: Math.ceil(dataUser.count / Number.parseInt(limit))
     })
-
 }
 
 module.exports.webProfile = async (req, res) => {

@@ -9,8 +9,17 @@ const UserRole = Model.user_roles;
 module.exports.webReadRoleUser = async (req, res) => {
 
 
+    const page = Number.parseInt(req.query.page);
+    const size = Number.parseInt(req.query.size);
+
+    const limit = size ? +size : 5;
+
     const user = await User.findOne({ where: { id: req.user.userId } });
-    const roleuser = await UserRole.findAll({ attributes: ['id'], include: ['users', 'roles'] });
+    const roleuser = await UserRole.findAndCountAll({
+        attributes: ['id'], include: ['users', 'roles'],
+        limit: limit,
+        offset: page ? page * limit : 0
+    });
     const roles = await Role.findAll();
 
     res.locals.message = req.flash();
@@ -19,9 +28,10 @@ module.exports.webReadRoleUser = async (req, res) => {
         title: 'Role User',
         layout: 'layouts/app',
         user: user,
-        roleusers: roleuser,
+        roleusers: roleuser.rows,
         roles: roles,
-        csrfToken: req.csrfToken()
+        csrfToken: req.csrfToken(),
+        totalPages : Math.ceil(roleuser.count / Number.parseInt(limit))
     })
 
 }

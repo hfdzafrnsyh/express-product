@@ -111,9 +111,10 @@ module.exports.webReadDataUser = async (req, res) => {
     const page = Number.parseInt(req.query.page);
     const size = Number.parseInt(req.query.size);
 
-    const limit = size ? + size : 5;
+    const limit = size ? +size : 5;
 
-    const user = await User.findOne({ where: { id: req.user.userId } })
+    const user = await User.findOne({ where: { id: req.user.userId } });
+
     const dataUser = await User.findAndCountAll({
         limit: limit,
         offset: page ? page * limit : 0

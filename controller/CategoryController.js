@@ -9,8 +9,16 @@ const User = Model.users;
 // WEB
 module.exports.webReadCategory = async (req, res) => {
 
+    const page = Number.parseInt(req.query.page);
+    const size = Number.parseInt(req.query.size);
+
+    const limit = size ? +size : 5;
+
     const user = await User.findOne({ where: { id: req.user.userId } })
-    const categorys = await Category.findAll();
+    const categorys = await Category.findAndCountAll({
+        limit: limit,
+        offset: page ? page * limit : 0
+    });
 
     res.locals.message = req.flash();
 
@@ -18,8 +26,9 @@ module.exports.webReadCategory = async (req, res) => {
         title: 'Category',
         layout: 'layouts/app',
         user: user,
-        categorys: categorys,
-        csrfToken: req.csrfToken()
+        categorys: categorys.rows,
+        csrfToken: req.csrfToken(),
+        totalPages: Math.ceil(categorys.count / Number.parseInt(limit))
     })
 
 }

@@ -6,8 +6,16 @@ const User = Model.users;
 
 module.exports.webReadRole = async (req, res) => {
 
+    const page = Number.parseInt(req.query.page);
+    const size = Number.parseInt(req.query.size);
+
+    const limit = size ? +size : 5
+
     const user = await User.findOne({ where: { id: req.user.userId } });
-    const roles = await Role.findAll()
+    const roles = await Role.findAndCountAll({
+        limit: limit,
+        offset: page ? page * limit : 0
+    })
 
     res.locals.message = req.flash();
 
@@ -15,8 +23,9 @@ module.exports.webReadRole = async (req, res) => {
         title: 'Role',
         layout: 'layouts/app',
         user: user,
-        roles: roles,
-        csrfToken: req.csrfToken()
+        roles: roles.rows,
+        csrfToken: req.csrfToken(),
+        totalPages: Math.ceil(roles.count / Number.parseInt(limit))
     })
 
 }

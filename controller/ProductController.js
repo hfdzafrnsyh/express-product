@@ -7,8 +7,17 @@ const User = Model.users;
 // WEB
 module.exports.webReadProduct = async (req, res) => {
 
+    const page = Number.parseInt(req.query.page);
+    const size = Number.parseInt(req.query.size);
+
+    const limit = size ? +size : 5;
+
     const user = await User.findOne({ where: { id: req.user.userId } })
-    const products = await Product.findAll({ include: ['categories'] })
+    const products = await Product.findAndCountAll({
+        include: ['categories'],
+        limit: limit,
+        offset: page ? page * limit : 0
+    })
     const categorys = await Category.findAll();
 
     res.locals.message = req.flash();
@@ -17,7 +26,8 @@ module.exports.webReadProduct = async (req, res) => {
         title: 'Product',
         layout: 'layouts/app',
         user: user,
-        products: products,
+        products: products.rows,
+        totalPages: Math.ceil(products.count / Number.parseInt(limit)),
         categorys: categorys,
         csrfToken: req.csrfToken()
 

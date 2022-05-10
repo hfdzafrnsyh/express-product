@@ -13,7 +13,6 @@ function authJwt() {
         path: [
             { url: /\/api\/category(.*)/, methods: ['GET', 'OPTIONS'] },
             { url: /\/api\/product(.*)/, methods: ['GET', 'OPTIONS'] },
-            { url: /\/api\/user(.*)/, methods: ['GET', 'OPTIONS'] },
             `${'/'}`,
             `${api}`,
             `${api}/login`,

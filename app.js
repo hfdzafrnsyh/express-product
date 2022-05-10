@@ -64,3 +64,5 @@ routes(app);
 app.listen(PORT, () => {
     console.log(`Server run in port ${PORT}`);
 })
+
+module.exports = app;

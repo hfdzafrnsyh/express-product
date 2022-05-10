@@ -4,8 +4,8 @@
   "description": "learn express sequelize associate",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "test": "mocha --timeout 10000"
   },
   "author": "hfdzafrnsyh",
   "license": "ISC",
@@ -31,5 +31,11 @@
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.15",
     "sequelize": "^6.19.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.0.0",
+    "should": "^13.2.3"
   }
 }

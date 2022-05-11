@@ -82,7 +82,7 @@ describe('Category', () => {
     })
 
 
-    // PUT role
+    // PUT Category
     describe('PUT /api/category', () => {
         it('It should PUT the Category', (done) => {
             let id = 10;

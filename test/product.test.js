@@ -21,7 +21,7 @@ describe('Product', () => {
         }).then(done())
     });
 
-    // GET role
+    // GET Product
     describe('GET /api/product', () => {
         it("It should GET all the product", (done) => {
 
@@ -91,7 +91,7 @@ describe('Product', () => {
     })
 
 
-    // PUT role
+    // PUT Product
     describe('PUT /api/product', () => {
         it('It should PUT the Product', (done) => {
             let id = 12;

@@ -1,10 +1,8 @@
 const chai = require('chai')
 const chaiHttp = require('chai-http');
-const { token } = require('morgan');
+
 const server = require('../app');
 
-const Model = require('../models/index');
-const User = Model.users;
 
 chai.use(chaiHttp);
 chai.should();

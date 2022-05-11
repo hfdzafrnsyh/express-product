@@ -65,7 +65,7 @@ describe('Roles', () => {
     // GET DETAIL role
     describe('GET DETAIL /api/role', () => {
         it('It should GET DETAIL the role', (done) => {
-            let id = 59;
+            let id = 60;
             chai.request(server)
                 .get(`/api/role/${id}`)
                 .auth(token, { type: "bearer" })
@@ -85,7 +85,7 @@ describe('Roles', () => {
     // PUT role
     describe('PUT /api/role', () => {
         it('It should PUT the role', (done) => {
-            let id = 59;
+            let id = 60;
 
             let roles = {
                 name: "Game Developer"
@@ -107,26 +107,6 @@ describe('Roles', () => {
         })
     })
 
-    // DELETE role
-
-    // describe('DELETE /api/role', () => {
-    //     it('It should DELETE the role', (done) => {
-    //         let id = 59;
-
-    //         Role.destroy({ where: { id: id } }, (err, role) => {
-    //             chai.request(server)
-    //                 .delete(`/api/role/${role.id}`)
-    //                 .auth(token, { type: "bearer" })
-    //                 .end((err, res) => {
-    //                     res.should.have.status(200);
-    //                     res.body.should.be.a('object');
-    //                     res.body.should.have.property('success').eql(true);
-    //                     done()
-    //                 })
-    //         }).then(done())
-
-    //     })
-    // })
 
 
 })

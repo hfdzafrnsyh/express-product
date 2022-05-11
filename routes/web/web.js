@@ -16,8 +16,6 @@ const ProductController = require('../../controller/ProductController');
 
 
 
-
-
 router.get('/login', csrfProtection, UserController.webLogin);
 router.get('/register', csrfProtection, UserController.webRegister);
 router.post('/login', csrfProtection, UserController.webPostLogin);

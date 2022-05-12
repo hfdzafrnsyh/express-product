@@ -3,6 +3,7 @@ const router = express.Router();
 const cors = require('cors');
 const authJwt = require('../../middleware/AuthApi');
 
+
 const ProductController = require('../../controller/ProductController');
 const CategoryController = require('../../controller/CategoryController');
 const UserController = require('../../controller/UserController');
@@ -20,6 +21,8 @@ router.use(authJwt());
 router.get('/user', UserController.dataUser);
 router.post('/register', UserController.register);
 router.post('/login', UserController.login);
+router.post('/forgotpassword', UserController.forgotPassword);
+router.post('/resetpassword', UserController.resetPassword);
 
 // role
 router.get('/role', RoleController.readRole);

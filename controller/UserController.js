@@ -3,7 +3,8 @@ const User = Model.users;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
-
+const transporter = require('../middleware/Mailer');
+const { response } = require('../app');
 
 
 
@@ -114,6 +115,121 @@ module.exports.webForgotPassword = (req, res) => {
 
 }
 
+
+module.exports.webPostForgotPassword = async (req, res) => {
+
+    const user = await User.findOne({ where: { email: req.body.email } });
+
+    if (!user) {
+        req.flash('error', 'User Not Registered')
+        res.redirect('/forgotpassword');
+    } else if (user.isAdmin === false) {
+        req.flash('error', '403 Forbidden');
+        res.redirect('/forgotpassword');
+    } else {
+        let users = {
+            email: req.body.email
+        }
+
+        axios.post('http://localhost:5000/api/forgotpassword', users)
+            .then(response => {
+                if (response.status == 200) {
+
+                    let token = response.data.token;
+
+                    req.flash('success', 'Email Sending to Your Mail');
+                    res.cookie('forgot', token, { httpOnly: true, secure: true });
+                    res.redirect('/forgotpassword');
+                }
+            })
+            .catch(err => {
+                req.flash('error', 'Internal Server Error');
+                res.redirect('/forgotpassword');
+            })
+    }
+
+
+
+}
+
+
+module.exports.webResetPassword = async (req, res) => {
+
+
+    const token = req.cookies['forgot'];
+    const secret = process.env.SECRET;
+
+    jwt.verify(token, secret, (err, user) => {
+        req.user = user;
+
+        if (err) {
+            res.redirect('/')
+        }
+    })
+
+
+
+    const users = await User.findOne({ where: { id: req.user.userId } })
+
+    res.locals.message = req.flash();
+    res.render('auth/resetpassword', {
+        title: 'Reset Password',
+        layout: false,
+        csrfToken: req.csrfToken(),
+        user: users
+    })
+
+
+
+
+}
+
+
+
+module.exports.webPostResetPassword = async (req, res) => {
+
+
+    const token = req.cookies['forgot'];
+    const secret = process.env.SECRET;
+    jwt.verify(token, secret, (err, user) => {
+        req.user = user;
+        if (err) {
+            res.redirect('/')
+        }
+    })
+
+    const user = await User.findOne({ where: { id: req.user.userId } });
+
+    if (!user) {
+        req.flash('error', 'Error Invalid Email')
+        res.redirect(`/resetpassword/${token}?email=${user.email}`);
+    } else if (req.body.password !== req.body.password_confirmation) {
+        req.flash('error', 'Password Dont Match!')
+        res.redirect(`/resetpassword/${token}?email=${user.email}`);
+    } else {
+
+        let users = {
+            email: req.body.email,
+            password: req.body.password
+        }
+
+        await axios.post('http://localhost:5000/api/resetpassword', users)
+            .then(response => {
+                if (response.status == 200) {
+                    req.flash('success', 'Reset Password Successfully');
+                    res.clearCookie('forgot');
+                    res.clearCookie('_csrf');
+                    res.redirect('/login');
+                }
+            })
+            .catch(err => {
+                req.flash('error', 'Internal Server Error' + err);
+                res.redirect(`/resetpassword/${token}?email=${user.email}`)
+            })
+    }
+
+
+}
 
 module.exports.webReadDataUser = async (req, res) => {
 
@@ -388,6 +504,99 @@ module.exports.login = (req, res, next) => {
                     success: false,
                     message: "Wrong Password"
                 })
+            }
+        })
+        .catch(err => {
+            res.status(500).json({
+                success: false,
+                message: "Internal Server Error",
+                error: err
+            })
+        })
+
+}
+
+
+module.exports.forgotPassword = (req, res) => {
+
+    const secret = process.env.SECRET;
+
+    User.findOne({ where: { email: req.body.email } })
+        .then(user => {
+            if (!user) {
+                res.status(404).json({
+                    success: false,
+                    message: "User Not Registered"
+                })
+            } else if (user) {
+
+                let token = jwt.sign({
+                    userId: user.id,
+                    isAdmin: user.isAdmin
+                },
+                    secret,
+                    {
+                        expiresIn: '1h'
+                    }
+                );
+
+                const mailOption = {
+                    from: 'noreplypidz@gmail.com',
+                    to: user.email,
+                    subject: 'Forgot Password',
+                    text: 'Forgot Your Pasword!',
+                    html: `<a href='http://localhost:5000/resetpassword/${token}?email=${user.email}' class='btn btn-primary'>Click </a>`
+                }
+
+                transporter.sendMail(mailOption, function (err, info) {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        console.log('Email' + info.response)
+                        res.status(200).json({
+                            success: true,
+                            message: `Mail Sending to ${user.email} info ${info.messageId}`,
+                            token: token
+                        })
+                    }
+                })
+            }
+
+        })
+        .catch(err => {
+            res.status(500).json({
+                succes: false,
+                message: "Internal Server Error",
+                error: err
+            })
+        })
+
+}
+
+module.exports.resetPassword = (req, res) => {
+
+    User.findOne({ where: { email: req.body.email } })
+        .then(user => {
+            if (user) {
+                let users = {
+                    password: bcrypt.hashSync(req.body.password, 10)
+                }
+
+                User.update(users, { where: { email: req.body.email } })
+                    .then(data => {
+                        res.status(200).json({
+                            success: true,
+                            user: data
+                        })
+                    })
+                    .catch(err => {
+                        res.status(400).json({
+                            success: false,
+                            message: "Bad Request",
+                            error: err
+                        })
+                    })
+
             }
         })
         .catch(err => {

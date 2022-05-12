@@ -21,8 +21,12 @@ router.get('/register', csrfProtection, UserController.webRegister);
 router.post('/login', csrfProtection, UserController.webPostLogin);
 router.post('/register', csrfProtection, UserController.webPostRegister);
 router.get('/forgotpassword', csrfProtection, UserController.webForgotPassword);
+router.post('/forgotpassword', csrfProtection, UserController.webPostForgotPassword);
+router.get('/resetpassword/:token', csrfProtection, UserController.webResetPassword);
+router.post('/resetpassword', csrfProtection, UserController.webPostResetPassword);
 
 router.get('/logout', authMiddleware, UserController.webLogout);
+
 
 // user
 router.get('/profile', authMiddleware, UserController.webProfile);

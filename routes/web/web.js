@@ -20,6 +20,7 @@ router.get('/login', csrfProtection, UserController.webLogin);
 router.get('/register', csrfProtection, UserController.webRegister);
 router.post('/login', csrfProtection, UserController.webPostLogin);
 router.post('/register', csrfProtection, UserController.webPostRegister);
+router.get('/forgotpassword', csrfProtection, UserController.webForgotPassword);
 
 router.get('/logout', authMiddleware, UserController.webLogout);
 

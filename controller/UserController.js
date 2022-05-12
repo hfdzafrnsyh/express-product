@@ -102,7 +102,17 @@ module.exports.webPostRegister = async (req, res) => {
 }
 
 
+module.exports.webForgotPassword = (req, res) => {
 
+    res.locals.message = req.flash();
+
+    res.render('auth/forgotpassword', {
+        title: 'Forgot Password',
+        layout: false,
+        csrfToken: req.csrfToken()
+    })
+
+}
 
 
 module.exports.webReadDataUser = async (req, res) => {

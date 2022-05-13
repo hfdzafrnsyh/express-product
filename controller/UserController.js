@@ -224,7 +224,7 @@ module.exports.webPostResetPassword = async (req, res) => {
             })
             .catch(err => {
                 req.flash('error', 'Internal Server Error' + err);
-                res.redirect(`/resetpassword/${token}?email=${user.email}`)
+                res.redirect(`/resetpassword/${token}`)
             })
     }
 
@@ -578,15 +578,15 @@ module.exports.resetPassword = (req, res) => {
     User.findOne({ where: { email: req.body.email } })
         .then(user => {
             if (user) {
-                let users = {
+                let Users = {
                     password: bcrypt.hashSync(req.body.password, 10)
                 }
 
-                User.update(users, { where: { email: req.body.email } })
-                    .then(data => {
+                User.update(Users, { where: { email: req.body.email } })
+                    .then(users => {
                         res.status(200).json({
                             success: true,
-                            user: data
+                            user: users
                         })
                     })
                     .catch(err => {

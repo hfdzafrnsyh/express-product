@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const transporter = require('../middleware/Mailer');
-const { response } = require('../app');
+const ejs = require('ejs');
 
 
 
@@ -540,26 +540,35 @@ module.exports.forgotPassword = (req, res) => {
                     }
                 );
 
-                const mailOption = {
-                    from: 'noreplypidz@gmail.com',
-                    to: user.email,
-                    subject: 'Forgot Password',
-                    text: 'Forgot Your Pasword!',
-                    html: `<a href='http://localhost:5000/resetpassword/${token}?email=${user.email}' class='btn btn-primary'>Click </a>`
-                }
 
-                transporter.sendMail(mailOption, function (err, info) {
+                ejs.renderFile(`views/mail/resetpassword.template.ejs`, { email: user.email, token: token }, function (err, data) {
                     if (err) {
                         console.log(err)
                     } else {
-                        console.log('Email' + info.response)
-                        res.status(200).json({
-                            success: true,
-                            message: `Mail Sending to ${user.email} info ${info.messageId}`,
-                            token: token
+
+                        const mailOption = {
+                            from: 'noreplynodeweb@gmail.com',
+                            to: user.email,
+                            subject: 'Forgot Password',
+                            text: 'Forgot Your Pasword!',
+                            html: `${data}`
+                        }
+
+                        transporter.sendMail(mailOption, function (err, info) {
+                            if (err) {
+                                console.log(err)
+                            } else {
+                                console.log('Email' + info.response)
+                                res.status(200).json({
+                                    success: true,
+                                    message: `Mail Sending to ${user.email} info ${info.messageId}`,
+                                    token: token
+                                })
+                            }
                         })
                     }
                 })
+
             }
 
         })

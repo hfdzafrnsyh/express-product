@@ -69,7 +69,7 @@ describe('Product', () => {
     // GET DETAIL Product
     describe('GET DETAIL /api/product', () => {
         it('It should GET DETAIL the Product', (done) => {
-            let id = 12;
+            let id = 19;
             chai.request(server)
                 .get(`/api/product/${id}`)
                 .auth(token, { type: "bearer" })
@@ -94,7 +94,7 @@ describe('Product', () => {
     // PUT Product
     describe('PUT /api/product', () => {
         it('It should PUT the Product', (done) => {
-            let id = 12;
+            let id = 19;
 
             let products = {
                 name: 'Test',
@@ -125,7 +125,7 @@ describe('Product', () => {
     // DELETE Product
     describe('DELETE /api/product', () => {
         it('It should DELETE the Product', (done) => {
-            let id = 14;
+            let id = 22;
 
             Product.destroy({ where: { id: id } }, (err, product) => {
                 chai.request(server)

@@ -64,7 +64,7 @@ describe('Category', () => {
     // GET DETAIL Category
     describe('GET DETAIL /api/category', () => {
         it('It should GET DETAIL the Category', (done) => {
-            let id = 10;
+            let id = 22;
             chai.request(server)
                 .get(`/api/category/${id}`)
                 .auth(token, { type: "bearer" })
@@ -85,7 +85,7 @@ describe('Category', () => {
     // PUT Category
     describe('PUT /api/category', () => {
         it('It should PUT the Category', (done) => {
-            let id = 10;
+            let id = 22;
 
             let categorys = {
                 name: "Test",

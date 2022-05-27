@@ -492,10 +492,12 @@ module.exports.login = (req, res, next) => {
                         expiresIn: '1d'
                     }
                 );
-
+                
+                const users = ({id : user.id , email : user.email , name : user.name , photo:user.photo})
+                
                 res.status(200).json({
                     success: true,
-                    user: user,
+                    user: users,
                     token: token
                 })
 
